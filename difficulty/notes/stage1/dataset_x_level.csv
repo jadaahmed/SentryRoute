@@ -1,0 +1,21 @@
+dataset,,Level 1,Level 2,Level 3,Level 4,Level 5,Level ?
+Idavidrein/gpqa/gpqa_extended,541,0,0,0,0,0,0
+TAUR-Lab/MuSR,248,0,0,0,0,0,0
+TAUR-Lab/MuSR/object_placements,250,0,0,0,0,0,0
+TAUR-Lab/MuSR/team_allocation,250,0,0,0,0,0,0
+TIGER-Lab/MMLU-Pro,11786,0,0,0,0,0,0
+lighteval/MATH/all,0,554,1326,1569,1675,2286,2
+lighteval/MATH/all/test,0,224,425,537,607,679,0
+openhermes/teknium,19455,0,0,0,0,0,0
+rungalileo/ragbench/covidqa,241,0,0,0,0,0,0
+rungalileo/ragbench/cuad,215,0,0,0,0,0,0
+rungalileo/ragbench/delucionqa,184,0,0,0,0,0,0
+rungalileo/ragbench/emanual,132,0,0,0,0,0,0
+rungalileo/ragbench/expertqa,131,0,0,0,0,0,0
+rungalileo/ragbench/finqa,132,0,0,0,0,0,0
+rungalileo/ragbench/hagrid,132,0,0,0,0,0,0
+rungalileo/ragbench/hotpotqa,132,0,0,0,0,0,0
+rungalileo/ragbench/msmarco,132,0,0,0,0,0,0
+rungalileo/ragbench/pubmedqa,132,0,0,0,0,0,0
+rungalileo/ragbench/tatqa,132,0,0,0,0,0,0
+rungalileo/ragbench/techqa,132,0,0,0,0,0,0
