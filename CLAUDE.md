@@ -516,6 +516,7 @@ What the sponsor gets: a working on-prem deployment with a measured cost-reducti
 
 <!-- TODO: replace with the real structure once the repo is set up -->
 - `api/openapi.yaml`: gateway contract (source of truth)
+- `difficulty/`: complexity classifier Phase 1 on SPROUT (plan, notes, scripts; complexity only, no sensitivity code). Start at `difficulty/README.md`
 - TODO: gateway service, sensitivity service, complexity service, web UI, eval harness, data
 
 ## Commands

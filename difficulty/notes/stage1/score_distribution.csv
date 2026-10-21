@@ -1,0 +1,5 @@
+model,n,missing,min,max,mean,pct_exact_0_or_1,pct_0_4_to_0_6,pct_ge_0_5
+openai-gpt-4o,44241,0,0.0,1.0,0.845,86.8,0.04,86.1
+openai-gpt-4o-mini,44241,0,0.0,1.0,0.808,87.5,0.04,82.2
+wxai-llama-3-1-8b-instruct,44241,0,0.0,1.0,0.69,74.5,0.07,71.9
+wxai-llama-3-3-70b-instruct,44241,0,0.0,1.0,0.806,69.7,0.04,84.2
