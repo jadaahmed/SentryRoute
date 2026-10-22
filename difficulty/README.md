@@ -66,10 +66,6 @@ Never rename or overwrite a shared file in place: a new version gets a new name 
 - **Trained weights** are not committed. See `models/README.md`.
 - Dataset source and license notes live in [`/data/README.md`](../data/README.md). SPROUT's license is unresolved, so check that file before publishing results.
 
-## Known differences from the root `CLAUDE.md`
+## Relationship to the root `CLAUDE.md`
 
-These are deliberate Phase 1 choices; raise them with the team rather than silently changing either side.
-
-- **Labels.** `CLAUDE.md` describes labelling by the smallest tier whose output a judge rates equivalent to the frontier. Phase 1 uses SPROUT's stored judge scores with an adequacy cutoff of 0.5 (easy / hard / infeasible) on stand-in model pairs, because no real pool exists yet. Real-pool labels are Phase 2.
-- **Latency target.** `CLAUDE.md` says classifier overhead under 50 ms; the plan targets routing overhead under 100 ms at p95 on CPU (the contract's proposed figure) with a 250 ms deadline. Stage 5b measures the real number.
-- **Tiers.** The service returns `simple / moderate / complex`. Phase 1 models only cheap-vs-strong per pool; the tier comes from a fixed rule on the calibrated probability and tau.
+`CLAUDE.md` was updated on 22 Oct 2026 to describe this Phase 1 design (two heads, tier rule, SPROUT labels, latency split). If this folder and `CLAUDE.md` disagree, fix both in the same PR. Pending items (per-pool field, tier to model mapping) are in its Open questions table.
