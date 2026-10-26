@@ -6,13 +6,13 @@ Sensitivity- and difficulty-aware LLM routing for regulated enterprises. Graduat
 - **Supervisor:** Prof. Mahmoud Khalil
 - **Team (8):** Karim Marwan, Yousef Waleed, Mohamed Sameh, Adam Heshmat, Zeina Reda, Joumana Elsewefie, Hana Salah, Jada Ahmed
 - **Runs:** late Sep 2026 to end of June 2027
-- **Complexity classifier, Phase 1 owners:** data and labels Adam Heshmat; baselines and evaluation code Hana Salah; training, serving wrapper and latency Zeina Reda; contract and mock, calibration, tau and report Mohamed Sameh. Status lives in `difficulty/README.md`.
+- **Complexity classifier, Phase 1 owners:** data and labels Adam Heshmat; baselines and evaluation code Hana Salah; training, serving wrapper and latency Zeina Reda; contract and mock, calibration, tau and report Mohamed Sameh. Status lives in `Complexity/difficulty/README.md`.
 
 ## Sources of truth
 
-1. **`api/openapi.yaml`** is the machine-readable gateway contract. If anything here disagrees with it, the spec wins. Change the spec first, then the code, then regenerate the TypeScript client. CI runs a spec-drift check. *(Not yet committed to the repo as of 22 Oct 2026; until it lands, the Oct 21 Tech Stack & Gateway API Contract doc is the reference.)*
+1. **`api/openapi.yaml`** is the machine-readable gateway contract. If anything here disagrees with it, the spec wins. Change the spec first, then the code, then regenerate the TypeScript client. CI runs a spec-drift check. *(Draft committed 26 Oct 2026, transcribed from the Oct 21 contract plus the v2 per-pool change; Karim to review and confirm. The policy body, `/v1/models` entries and savings buckets are still open in it. Until he confirms, the Tech Stack & Gateway API Contract doc is the reference.)* The internal classifier contract is in `api/classifier.openapi.yaml`.
 2. **This file** holds decisions, rules and context.
-3. **Design docs:** Tech Stack & Gateway API Contract (Oct 21, 2026), Graduation Project Proposal, Timeline & Sponsor Support Requirements (Sep 28, 2026).
+3. **Design docs:** Tech Stack & Gateway API Contract (Oct 21, 2026; v2 of 26 Oct 2026 adds per-pool complexity, draft spec in `api/`; readable doc: https://claude.ai/artifact/NYzZbPAnrGzL3vcH67z1Tp), Graduation Project Proposal, Timeline & Sponsor Support Requirements (Sep 28, 2026).
 
 ---
 
@@ -174,7 +174,7 @@ resp.model_extra["sentryroute"]   # routing metadata
 Sent twice. Headers are readable before a stream starts, and a `sentryroute` object goes in the body. OpenAI SDKs ignore unknown fields, so apps that don't care see nothing new.
 
 - **Headers:** `X-SentryRoute-Decision-Id`, `X-SentryRoute-Model`, `X-SentryRoute-Locality` (`local` | `external`), `X-SentryRoute-Sensitivity` (the label)
-- **Body `sentryroute`:** `decision_id`, `route {model, provider, locality, reason_codes}`, `sensitivity {label, score, categories, degraded}`, `complexity {tier, score, degraded}`, `cost {actual_usd, baseline_usd}`, `overhead_ms`
+- **Body `sentryroute`:** `decision_id`, `route {model, provider, locality, reason_codes}`, `sensitivity {label, score, categories, degraded}`, `complexity {tier, score, pool, degraded}` (tier and score are those of the pool the router used; `pool` is `external` or `local`), `cost {actual_usd, baseline_usd}`, `overhead_ms`
 
 ### Sensitivity labels
 
@@ -200,7 +200,7 @@ One MongoDB document per request, returned by `GET /v1/decisions`. It's the **on
 | Identity | `decision_id`, `created_at`, `tenant_id`, `api_key_id`, `policy_id`, `policy_version`, `tags` |
 | Request | `message_count`, `input_tokens_est`, `prompt_hmac` (keyed hash so short prompts can't be brute-forced back) |
 | Sensitivity | `label`, `score`, `categories` with counts, `model_version`, `latency_ms`, `degraded` |
-| Complexity | `tier`, `score`, `signals`, `model_version`, `latency_ms`, `degraded` |
+| Complexity | `tier`, `score`, `signals`, `model_version`, `latency_ms`, `degraded`, `pools` (both pools' `{tier, score}`), `pool_used` |
 | Route | `model`, `provider`, `locality`, `reason_codes`, `attempts` |
 | Outcome | `status` (`ok`, `blocked`, `upstream_error`, `client_cancelled`), `http_status`, `input_tokens`, `output_tokens`, `ttft_ms`, `total_ms` |
 | Cost | `actual_usd`, `baseline_usd`, `saved_usd` |
@@ -216,7 +216,7 @@ Both classifier services expose the same endpoints, so the gateway treats them a
 | Method | Path | What it does |
 |---|---|---|
 | POST | `/v1/classify` | Classify one request |
-| GET | `/v1/info` | Model name, version, and the labels or tiers it can return |
+| GET | `/v1/info` | Model name, version, and the labels or tiers it can return; the complexity service also lists `pools` |
 | GET | `/healthz` | Liveness, and whether the model is loaded |
 
 **Request (same for both):**
@@ -246,17 +246,24 @@ Both classifier services expose the same endpoints, so the gateway treats them a
 }
 ```
 
-**Complexity response:**
+**Complexity response** (v2, 26 Oct 2026: `pools` is new and optional; Karim agreed):
 ```json
 {
   "request_id": "dec_01JB7Q2M4X9K3T6V8W0Y2Z4A6C",
-  "tier": "moderate",
-  "score": 0.52,
+  "tier": "complex",
+  "score": 0.60,
+  "pools": {
+    "external": { "tier": "simple",  "score": 0.10 },
+    "local":    { "tier": "complex", "score": 0.60 }
+  },
   "signals": ["code", "multi_step"],
   "model_version": "cx-encoder-0.1",
   "latency_ms": 21
 }
 ```
+Top-level `tier` and `score` equal the more complex of the two pools (simple < moderate < complex; tie: higher score), so a consumer that ignores `pools` behaves as before. `GET /v1/info` adds `"pools": ["external", "local"]`. If `pools` is present, both entries are present. On timeout or error the answer is `complex`, `degraded: true`, with no `pools`; the gateway treats both pools as `complex`.
+
+**Pool selection (gateway).** After sensitivity and policy settle the route's locality, read `pools[locality]`: `sentryroute/local` and any request rerouted to local use `pools.local`; non-sensitive `sentryroute/auto` requests use `pools.external`; a pinned model uses the pool of the locality it ends up in. If `pools` is absent, use the top-level answer. A sensitive request is never read from `pools.external` (add a test).
 
 **Rules both teams build to:**
 
@@ -272,10 +279,10 @@ Both classifier services expose the same endpoints, so the gateway treats them a
 
 **Sensitivity detector:** layered and recall-biased. Full design in **Sensitivity detection** below.
 
-**Difficulty classifier (Phase 1 design; full method in `difficulty/docs/phase1_plan_v2.4.md`, fixed choices in `difficulty/notes/preregistration.md`):**
+**Difficulty classifier (Phase 1 design; full method in `Complexity/difficulty/docs/phase1_plan_v2.4.md`, fixed choices in `Complexity/difficulty/notes/preregistration.md`):**
 - A small encoder (ModernBERT-base, mean-pooled) with **one head per pool** (external, local). Each head outputs the calibrated probability `p` that the pool's **cheap model is adequate** for the prompt. Phase 1 models cheap-vs-strong per pool only.
 - *Tier rule (per pool):* `simple` if `p >= tau + 0.1`, `moderate` if `tau <= p < tau + 0.1`, `complex` if `p < tau`. `tau` is the lowest cutoff at which at most 10% of hard prompts are sent to the cheap model, picked on a held-out split and then frozen. The contract `score` is `1 - p` (higher = more complex).
-- *What the gateway sees:* the more complex of the two pools' results as the top-level `tier` and `score`, so it never routes cheaper than either pool allows. An optional per-pool field is pending the contract author's answer.
+- *What the gateway sees (contract v2, agreed 26 Oct 2026):* the response carries `pools: {external, local}`, each `{tier, score}`, and the router reads the pool for the route's locality. The top-level `tier` and `score` stay and equal the more complex of the two pools, so a consumer that ignores `pools` never routes cheaper than either pool allows.
 - *Tier to model (lives in the policy, pending confirmation):* `simple` goes to the pool's cheap model; `moderate` and `complex` go to the strong model. The `moderate` band is the low-confidence escalation.
 - *Escalation stays inside the locality.* A sensitive request that escalates still goes to a larger **local** model, never an external one (same rule as fallback; non-negotiable 2).
 - *Labels, Phase 1:* SPROUT's stored judge scores with an adequacy cutoff of 0.5. Per pool a prompt is **easy** (cheap model adequate), **hard** (only the strong model adequate) or **infeasible** (neither; kept out of training). Model pairs are stand-ins: GPT-4o-mini to GPT-4o (external), Llama 3.1 8B to Llama 3.3 70B (local). No model is run or paid for in Phase 1.
@@ -366,7 +373,7 @@ TODO: how L1/L2 hits and L3 labels map to the four levels (`public` / `internal`
 - **Test sets never leak into training.** Split WildChat / LMSYS by conversation, and keep generator output out of test sets.
 - Human-written test prompts use made-up details only, never real personal data.
 - Filter personal info out of WildChat / LMSYS before using it for training.
-- Check each dataset's license and access terms. Don't commit gated or large datasets to the repo; fetch them with scripts and document them in `data/README.md`.
+- Check each dataset's license and access terms. Don't commit gated or large datasets to the repo; fetch them with scripts and document them in `Complexity/data/README.md`.
 
 ---
 
@@ -431,14 +438,14 @@ The sponsor won't provide datasets, so the core system is built on public and sy
 
 | Dataset | Axis | Contents | Use |
 |---|---|---|---|
-| **SPROUT** (`CARROT-LLM-Routing/SPROUT`, 44,241 prompts) | Difficulty | Prompts from 20 sources with stored answers and judge scores (0-1) from 13 models | **Phase 1 training and evaluation** (in use). License resolved (see `data/README.md`); derived labels are in `difficulty/labels/` |
+| **SPROUT** (`CARROT-LLM-Routing/SPROUT`, 44,241 prompts) | Difficulty | Prompts from 20 sources with stored answers and judge scores (0-1) from 13 models | **Phase 1 training and evaluation** (in use). License resolved (see `Complexity/data/README.md`); derived labels are in `Complexity/difficulty/labels/` |
 | LLMRouterBench | Difficulty | Questions answered by many small and large models, with quality and cost | Train selection of the cheapest capable model |
 | RouteLLM datasets | Difficulty | Human preferences between strong- and weak-model answers | When a stronger model is genuinely needed |
 | RouterBench | Difficulty · eval | Prompts and recorded outcomes from multiple LLMs | Test that routing cuts cost without lowering quality |
 
 For end-to-end evaluation, public prompts are mixed with **synthetically generated sensitive prompts** so the workload exercises both axes at once.
 
-Document every dataset's source and license in `data/README.md`. Don't commit raw data containing real personal info.
+Document every dataset's source and license in `Complexity/data/README.md`. Don't commit raw data containing real personal info.
 
 ## Evaluation
 
@@ -457,7 +464,7 @@ Document every dataset's source and license in `data/README.md`. Don't commit ra
 
 ### Phase 1 difficulty evaluation
 
-Rules are pre-registered in `difficulty/notes/preregistration.md`. Metrics: AUROC with bootstrap CIs (and paired differences against baselines), calibration (ECE, Brier, log-loss), under- and over-routing at the frozen `tau`, average routed score vs. share sent to cheap against always-strong, always-cheap, random and oracle. Baselines: random, prompt length, source prior (reference only, uses metadata the gateway never sees), TF-IDF, frozen embeddings, RouteLLM (eval environment only). Gates: TF-IDF AUROC at least 0.6; classifier beats TF-IDF in both pools; test under-routing about 12% or lower. The test split stays locked until models are frozen. Known limits: stand-in model pairs, AI-judge labels, single-turn prompts only, "share sent to cheap" is a proxy for cost.
+Rules are pre-registered in `Complexity/difficulty/notes/preregistration.md`. Metrics: AUROC with bootstrap CIs (and paired differences against baselines), calibration (ECE, Brier, log-loss), under- and over-routing at the frozen `tau`, average routed score vs. share sent to cheap against always-strong, always-cheap, random and oracle. Baselines: random, prompt length, source prior (reference only, uses metadata the gateway never sees), TF-IDF, frozen embeddings, RouteLLM (eval environment only). Gates: TF-IDF AUROC at least 0.6; classifier beats TF-IDF in both pools; test under-routing about 12% or lower. The test split stays locked until models are frozen. Known limits: stand-in model pairs, AI-judge labels, single-turn prompts only, "share sent to cheap" is a proxy for cost.
 
 ## Risks and mitigations
 
@@ -490,9 +497,7 @@ Rules are pre-registered in `difficulty/notes/preregistration.md`. Metrics: AURO
 | How does L4 fit the 250 ms sensitivity deadline? A 3–8B judge on laptop GPUs likely won't | Sensitivity + gateway teams | A separate deadline for L4, or unsure prompts just go local without L4 |
 | L4 on vLLM or Ollama? | Team, once laptop GPUs are known | Oct 21 doc picked Ollama for local models; vLLM needs compute capability 7.0+ |
 | How do L1/L2 hits and L3 labels map to the four levels, and what goes in `categories[].type` / `source`? | Sensitivity team | Contract examples still say `presidio` / `encoder`; update `openapi.yaml` |
-| May the complexity response add an optional per-pool field (`pools: {external, local}`)? | Contract author | Whether the gateway can use each pool's own tier instead of the more complex of the two |
 | Is `simple` to cheap model and `moderate` / `complex` to strong model the right mapping? Will pools have more than two models? | Contract author, with the policy owner | Policy table; Phase 1 only models cheap vs. strong |
-| Is complexity `score` higher = more complex? | Contract author | Phase 1 assumes yes (`score = 1 - p`) |
 | Which CPU is the latency target measured on? | Team | Stage 5b numbers are reported with the CPU model and thread count |
 | Do the local stand-in models (Llama 8B / 70B) fit the laptops? | Team (laptop VRAM) | May switch the local pair to Llama 3.2 3B / 3.1 8B before labels are computed |
 
@@ -528,13 +533,13 @@ What the sponsor gets: a working on-prem deployment with a measured cost-reducti
 
 ## Repo layout
 
-<!-- TODO: replace with the real structure once the repo is set up -->
-- `api/openapi.yaml`: gateway contract (source of truth)
-- `difficulty/`: complexity classifier Phase 1 on SPROUT. Complexity only, no sensitivity code. Start at `difficulty/README.md`
+- `api/openapi.yaml`: gateway contract (source of truth); `api/classifier.openapi.yaml`: internal classifier contract
+- `Complexity/difficulty/`: complexity classifier Phase 1 on SPROUT. Complexity only, no sensitivity code. Start at `Complexity/difficulty/README.md`
   - `docs/` plan, `notes/` pre-registration, data notes and contract questions, `scripts/` Stage 1 analysis
   - `labels/`, `splits/`, `scores/`, `results/` shared files between team members (formats in the README); `models/` weights are not committed
-- `data/README.md`: source and license of every dataset
-- TODO: gateway service, sensitivity service, complexity service, web UI, eval harness, data
+- `Complexity/data/README.md`: source and license of every dataset
+- `Sensitivity/`: sensitivity detector layers `L1.py` to `L4.py` (sensitivity team)
+- TODO: gateway service, complexity service, web UI, eval harness
 
 ## Commands
 
@@ -546,10 +551,10 @@ uv run pytest              # tests
 uv run ruff check .        # lint
 uv run mypy .              # type check
 ```
-Difficulty Phase 1 (own virtualenv, not the gateway image; see `difficulty/README.md`):
+Difficulty Phase 1 (own virtualenv, not the gateway image; see `Complexity/difficulty/README.md`):
 ```bash
-pip install -r difficulty/requirements-stage1.txt
-python difficulty/scripts/stage1_explore.py --out difficulty/notes/stage1 \
+pip install -r Complexity/difficulty/requirements-stage1.txt
+python Complexity/difficulty/scripts/stage1_explore.py --out Complexity/difficulty/notes/stage1 \
   --response-field response --judge-field judge_response --score-field score
 ```
 TODO: web UI commands, TS client generation from `openapi.yaml`, eval harness, spec-drift check.
@@ -572,5 +577,5 @@ TODO: web UI commands, TS client generation from `openapi.yaml`, eval harness, s
 - **When unsure whether something is sensitive, treat it as sensitive.**
 - **Never let test data into training.** Keep the sensitivity test sets out of any training or generator pipeline.
 - **Keep router overhead low.** It's on the hot path of every request, and per-stage latency is a thesis result.
-- **Difficulty work:** read `difficulty/README.md` and `difficulty/notes/preregistration.md` first. Never tune on the test split, and only Sameh sets `T` and `tau`. Change a pre-registered choice only with a written reason and date in its change log.
+- **Difficulty work:** read `Complexity/difficulty/README.md` and `Complexity/difficulty/notes/preregistration.md` first. Never tune on the test split, and only Sameh sets `T` and `tau`. Change a pre-registered choice only with a written reason and date in its change log.
 - Keep changes small and reviewable; this is an 8-person team working in parallel.

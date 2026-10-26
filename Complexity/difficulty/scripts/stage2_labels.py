@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """SentryRoute Phase 1, Stage 2: labels. Turns SPROUT's stored judge scores into easy / hard / infeasible labels per pool.
 
-Run from the repo root (or any folder):  python difficulty/scripts/stage2_labels.py
-Writes: difficulty/labels/labels_v1.csv (refuses to overwrite: a new version needs a new name, see --labels-out)
-        difficulty/notes/stage2/*.csv and stage2_notes_DRAFT.md
-Rule (pre-registered, difficulty/notes/preregistration.md): cutoff 0.5.
+Run from the repo root (or any folder):  python Complexity/difficulty/scripts/stage2_labels.py
+Writes: Complexity/difficulty/labels/labels_v1.csv (refuses to overwrite: a new version needs a new name, see --labels-out)
+        Complexity/difficulty/notes/stage2/*.csv and stage2_notes_DRAFT.md
+Rule (pre-registered, Complexity/difficulty/notes/preregistration.md): cutoff 0.5.
   cheap >= cutoff                      -> easy        (label 1)
   cheap <  cutoff and strong >= cutoff -> hard        (label 0)
   both  <  cutoff                      -> infeasible
@@ -16,8 +16,8 @@ M_EXT_CHEAP, M_EXT_STRONG = "openai-gpt-4o-mini", "openai-gpt-4o"
 M_LOC_CHEAP, M_LOC_STRONG = "wxai-llama-3-1-8b-instruct", "wxai-llama-3-3-70b-instruct"
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--labels-out", default="difficulty/labels/labels_v1.csv")
-ap.add_argument("--notes-dir", default="difficulty/notes/stage2")
+ap.add_argument("--labels-out", default="Complexity/difficulty/labels/labels_v1.csv")
+ap.add_argument("--notes-dir", default="Complexity/difficulty/notes/stage2")
 ap.add_argument("--cutoff", type=float, default=0.5, help="pre-registered 0.5; only change for a documented reason")
 ap.add_argument("--local-cheap", default=M_LOC_CHEAP); ap.add_argument("--local-strong", default=M_LOC_STRONG)
 ap.add_argument("--score-field", default="score")

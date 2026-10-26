@@ -41,8 +41,8 @@ Use a fresh virtual environment (the `dev` conda env had a NumPy 1.x clash with 
 
 ```bash
 python3 -m venv .venv-sprout && source .venv-sprout/bin/activate
-pip install -r difficulty/requirements-stage1.txt
-python difficulty/scripts/stage1_explore.py --out difficulty/notes/stage1 \
+pip install -r Complexity/difficulty/requirements-stage1.txt
+python Complexity/difficulty/scripts/stage1_explore.py --out Complexity/difficulty/notes/stage1 \
   --response-field response --judge-field judge_response --score-field score
 ```
 
@@ -68,4 +68,4 @@ Never rename or overwrite a shared file in place: a new version gets a new name 
 
 ## Relationship to the root `CLAUDE.md`
 
-`CLAUDE.md` was updated on 22 Oct 2026 to describe this Phase 1 design (two heads, tier rule, SPROUT labels, latency split). If this folder and `CLAUDE.md` disagree, fix both in the same PR. Pending items (per-pool field, tier to model mapping) are in its Open questions table.
+`CLAUDE.md` was updated on 22 Oct 2026 to describe this Phase 1 design (two heads, tier rule, SPROUT labels, latency split). If this folder and `CLAUDE.md` disagree, fix both in the same PR. The per-pool `pools` field was agreed on 26 Oct 2026 (contract v2); the only pending contract item is the tier to model mapping, in its Open questions table.

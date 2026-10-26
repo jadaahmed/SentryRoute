@@ -1,0 +1,153 @@
+openapi: 3.1.0
+info:
+  title: SentryRoute internal classifier contract
+  version: 0.2.0
+  description: |
+    Implemented by BOTH classifier services (sensitivity and complexity). PRIVATE Docker network only;
+    never exposed publicly (non-negotiable 5). DRAFT transcribed from the 21 Oct 2026 contract with the
+    v2 change of 26 Oct 2026 (`pools` in the complexity response and `/v1/info`). Karim to confirm.
+
+    Rules both teams build to:
+    - Sensitivity scans every message, system and assistant turns included. Complexity weights the last
+      user turn and may truncate earlier turns.
+    - No text out: responses carry entity types and counts (sensitivity) or tiers and scores (complexity),
+      never matched values or offsets.
+    - If a service cannot answer within `deadline_ms` the gateway stops waiting. Fallbacks: sensitivity
+      timeout or error gives `restricted`, `degraded: true`; complexity timeout or error gives `complex`,
+      `degraded: true` (no `pools` needed; the gateway treats both pools as `complex`).
+    - Each team ships a keyword mock in week one; the complexity mock also returns `pools`.
+servers:
+  - url: http://sensitivity:8000
+    description: Sensitivity service (private network)
+  - url: http://complexity:8000
+    description: Complexity service (private network)
+paths:
+  /v1/classify:
+    post:
+      operationId: classify
+      summary: Classify one request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ClassifyRequest' }
+      responses:
+        '200':
+          description: Sensitivity service returns SensitivityResponse; complexity service returns ComplexityResponse
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/SensitivityResponse'
+                  - $ref: '#/components/schemas/ComplexityResponse'
+  /v1/info:
+    get:
+      operationId: info
+      summary: Model name, version and the labels or tiers it can return
+      responses:
+        '200':
+          description: Service info
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Info' }
+  /healthz:
+    get:
+      operationId: healthz
+      summary: Liveness, and whether the model is loaded
+      responses:
+        '200':
+          description: Alive
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string }
+                  model_loaded: { type: boolean }
+components:
+  schemas:
+    ComplexityTier: { type: string, enum: [simple, moderate, complex] }
+    Locality: { type: string, enum: [external, local] }
+    Message:
+      type: object
+      required: [role, content]
+      properties:
+        role: { type: string, enum: [system, user, assistant] }
+        content: { type: string }
+    ClassifyRequest:
+      type: object
+      required: [request_id, messages, deadline_ms]
+      properties:
+        request_id: { type: string, example: dec_01JB7Q2M4X9K3T6V8W0Y2Z4A6C }
+        messages:
+          type: array
+          items: { $ref: '#/components/schemas/Message' }
+        deadline_ms: { type: integer, example: 250 }
+    SensitivityResponse:
+      type: object
+      required: [request_id, label, score, model_version, latency_ms]
+      properties:
+        request_id: { type: string }
+        label: { type: string, enum: [public, internal, confidential, restricted] }
+        score: { type: number }
+        categories:
+          type: array
+          description: Entity types and counts only. `source` values are still to be settled by the sensitivity team (examples say presidio / encoder).
+          items:
+            type: object
+            required: [type, count]
+            properties:
+              type: { type: string, example: PII.EMAIL_ADDRESS }
+              count: { type: integer }
+              source: { type: string }
+        model_version: { type: string }
+        latency_ms: { type: integer }
+    PoolResult:
+      type: object
+      required: [tier, score]
+      properties:
+        tier: { $ref: '#/components/schemas/ComplexityTier' }
+        score:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Higher = more complex. Equals 1 - p, where p is the calibrated probability that the pool's cheap model is adequate.
+    ComplexityPools:
+      type: object
+      description: v2, optional. If present, both entries are present.
+      required: [external, local]
+      properties:
+        external: { $ref: '#/components/schemas/PoolResult' }
+        local: { $ref: '#/components/schemas/PoolResult' }
+    ComplexityResponse:
+      type: object
+      required: [request_id, tier, score, model_version, latency_ms]
+      properties:
+        request_id: { type: string }
+        tier:
+          $ref: '#/components/schemas/ComplexityTier'
+          description: The more complex of the two pools when `pools` is present (order simple < moderate < complex).
+        score:
+          type: number
+          description: Score of the pool that decided `tier`; on a tie, the higher score.
+        pools: { $ref: '#/components/schemas/ComplexityPools' }
+        signals: { type: array, items: { type: string } }
+        model_version: { type: string }
+        latency_ms: { type: integer }
+    Info:
+      type: object
+      properties:
+        model_name: { type: string }
+        model_version: { type: string }
+        labels:
+          type: array
+          description: Sensitivity service only
+          items: { type: string }
+        tiers:
+          type: array
+          description: Complexity service only
+          items: { $ref: '#/components/schemas/ComplexityTier' }
+        pools:
+          type: array
+          description: v2. Complexity service only; present when per-pool answers are supported.
+          items: { $ref: '#/components/schemas/Locality' }

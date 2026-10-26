@@ -1,6 +1,6 @@
 # Pre-registration (Phase 1 difficulty classifier)
 
-Copied verbatim from `difficulty/docs/phase1_plan_v2.4.md` on 21 Oct 2026, before any labels, splits, baselines or classifier results existed.
+Copied verbatim from `Complexity/difficulty/docs/phase1_plan_v2.4.md` on 21 Oct 2026, before any labels, splits, baselines or classifier results existed.
 Changing a choice later is allowed only with a written reason and date, added to the change log at the bottom.
 
 Honesty note: Stage 1 (descriptive statistics of SPROUT, including a rough easy/hard/infeasible preview at cutoff 0.5) had already been run when this file was written. No model was trained and no baseline was scored.
@@ -21,7 +21,7 @@ Honesty note: Stage 1 (descriptive statistics of SPROUT, including a rough easy/
 | Gate 3 | Test under-routing about 12% or lower, judged with its CI |
 | Seed | 42 (a fixed starting number for random choices, so anyone can recreate the same split) |
 | **[v2.3]** Tier rule (per pool, p = P(cheap model adequate)) | `simple`: p >= tau + 0.1 · `moderate`: tau <= p < tau + 0.1 · `complex`: p < tau. Contract `score` = 1 − p (higher = more complex) |
-| **[v2.3]** Tier and score the gateway sees | The more complex of the two pools' results (safe: never routes cheaper than either pool allows), pending the contract author's answer to open question 1 |
+| **[v2.3]** Tier and score the gateway sees | Both pools' results in `pools: {external, local}` (contract v2, agreed 26 Oct 2026). Top-level `tier` and `score` = the more complex of the two (safe default for consumers that ignore `pools`). The gateway reads the pool for its route's locality |
 | **[v2.3]** Serving input rule | Flatten `messages` to one text: all turns in order, separated by blank lines, last user turn last. If over 2,048 tokens, keep the first 1,536 and last 512. A single-turn SPROUT prompt is already in this form |
 | **[v2.3]** Latency budget | 250 ms deadline per check; target routing overhead under 100 ms at p95 on CPU for prompts under 2,000 tokens (the contract's proposed target) |
 
@@ -46,10 +46,10 @@ Not changes to the table above (class weights were left to Stage 2); recorded he
 | Local pair | unchanged for now. Laptop-VRAM check still open; if it forces a switch, rerun Stage 2 with the backup pair **before any training** and log it below |
 | Cutoff | 0.5 unchanged (only 0.07% / 0.11% of prompts lie within 0.1 of it) |
 
-Details: `difficulty/notes/stage2_labels.md`.
+Details: `Complexity/difficulty/notes/stage2_labels.md`.
 
 ## Change log
 
 | Date | Change | Reason | By |
 |---|---|---|---|
-| | | | |
+| 2026-10-26 | Gateway contract v2 adds the optional per-pool answer (`pools`); the "tier and score the gateway sees" row now returns both pools plus the more complex one at the top level | Karim agreed to the proposal; removes the over-routing of prompts that are only hard for the other pool (5,194 prompts, 11.7%, are easy external / hard local) | Heshmat |

@@ -1,6 +1,6 @@
 # Stage 2: labels (Heshmat, 26 Oct 2026)
 
-Produced by `difficulty/scripts/stage2_labels.py` on the full SPROUT download. Rule and pairs are the pre-registered ones: adequacy cutoff 0.5; external pair GPT-4o-mini to GPT-4o; local pair Llama 3.1 8B to Llama 3.3 70B (stand-in; the laptop-VRAM check is still open, see below). Tables are in `notes/stage2/`. The labels file is committed as `difficulty/labels/labels_v1.csv` (44,241 rows, 5 MB; see `difficulty/labels/README.md`).
+Produced by `Complexity/difficulty/scripts/stage2_labels.py` on the full SPROUT download. Rule and pairs are the pre-registered ones: adequacy cutoff 0.5; external pair GPT-4o-mini to GPT-4o; local pair Llama 3.1 8B to Llama 3.3 70B (stand-in; the laptop-VRAM check is still open, see below). Tables are in `notes/stage2/`. The labels file is committed as `Complexity/difficulty/labels/labels_v1.csv` (44,241 rows, 5 MB; see `Complexity/difficulty/labels/README.md`).
 
 ## Result
 
