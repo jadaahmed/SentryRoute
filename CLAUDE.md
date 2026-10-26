@@ -431,7 +431,7 @@ The sponsor won't provide datasets, so the core system is built on public and sy
 
 | Dataset | Axis | Contents | Use |
 |---|---|---|---|
-| **SPROUT** (`CARROT-LLM-Routing/SPROUT`, 44,241 prompts) | Difficulty | Prompts from 20 sources with stored answers and judge scores (0-1) from 13 models | **Phase 1 training and evaluation** (in use). License unresolved, see `data/README.md` |
+| **SPROUT** (`CARROT-LLM-Routing/SPROUT`, 44,241 prompts) | Difficulty | Prompts from 20 sources with stored answers and judge scores (0-1) from 13 models | **Phase 1 training and evaluation** (in use). License resolved (see `data/README.md`); derived labels are in `difficulty/labels/` |
 | LLMRouterBench | Difficulty | Questions answered by many small and large models, with quality and cost | Train selection of the cheapest capable model |
 | RouteLLM datasets | Difficulty | Human preferences between strong- and weak-model answers | When a stronger model is genuinely needed |
 | RouterBench | Difficulty · eval | Prompts and recorded outcomes from multiple LLMs | Test that routing cuts cost without lowering quality |
@@ -494,7 +494,6 @@ Rules are pre-registered in `difficulty/notes/preregistration.md`. Metrics: AURO
 | Is `simple` to cheap model and `moderate` / `complex` to strong model the right mapping? Will pools have more than two models? | Contract author, with the policy owner | Policy table; Phase 1 only models cheap vs. strong |
 | Is complexity `score` higher = more complex? | Contract author | Phase 1 assumes yes (`score = 1 - p`) |
 | Which CPU is the latency target measured on? | Team | Stage 5b numbers are reported with the CPU model and thread count |
-| SPROUT has no license on its Hugging Face page. Can we use it for research and report results? | Prof. Mahmoud Khalil | Whether Phase 1 results can be published as is |
 | Do the local stand-in models (Llama 8B / 70B) fit the laptops? | Team (laptop VRAM) | May switch the local pair to Llama 3.2 3B / 3.1 8B before labels are computed |
 
 ---

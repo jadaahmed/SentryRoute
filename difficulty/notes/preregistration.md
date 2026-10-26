@@ -35,6 +35,19 @@ Honesty note: Stage 1 (descriptive statistics of SPROUT, including a rough easy/
 | Scores within 0.4 to 0.6 (cutoff-sensitivity) | at most 0.07% per model; keep the 0.5 cutoff |
 | Local pair vs laptop VRAM (Stage 0 step 6) | **still open**: depends on the team's answer. Decide before any label is computed |
 
+## Decisions made in Stage 2 (26 Oct 2026, before any training)
+
+Not changes to the table above (class weights were left to Stage 2); recorded here with their numbers.
+
+| Item | Decision |
+|---|---|
+| External head class weight on hard | easy/hard from the training split: 25,465 / 2,411 = 10.56. Fallback: square root (3.25), to be stated in the training log |
+| Local head class weight | none (hard is 19.4% of labelled prompts) |
+| Local pair | unchanged for now. Laptop-VRAM check still open; if it forces a switch, rerun Stage 2 with the backup pair **before any training** and log it below |
+| Cutoff | 0.5 unchanged (only 0.07% / 0.11% of prompts lie within 0.1 of it) |
+
+Details: `difficulty/notes/stage2_labels.md`.
+
 ## Change log
 
 | Date | Change | Reason | By |

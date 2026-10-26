@@ -1,0 +1,7 @@
+pool,group,n,easy,hard,infeasible,easy_pct,hard_pct,infeasible_pct
+external,test,6637,5455,545,637,82.2,8.2,9.6
+external,train,30968,25465,2411,3092,82.2,7.8,10.0
+external,validation,6636,5462,498,676,82.3,7.5,10.2
+local,test,6637,4754,1168,715,71.6,17.6,10.8
+local,train,30968,22262,5343,3363,71.9,17.3,10.9
+local,validation,6636,4804,1155,677,72.4,17.4,10.2

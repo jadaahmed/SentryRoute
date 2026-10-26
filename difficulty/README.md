@@ -64,7 +64,7 @@ Never rename or overwrite a shared file in place: a new version gets a new name 
 - **Dependencies:** this is the eval/training environment, not the gateway image. Anything new needs team approval first. RouteLLM (needs LiteLLM) may only ever live in a separate eval environment, never the gateway.
 - **No prompt text at rest** applies to the serving wrapper (Stage 5b): log only `request_id`, token count and latency. SPROUT files are public benchmark text, so they may be stored here; never commit real or customer data.
 - **Trained weights** are not committed. See `models/README.md`.
-- Dataset source and license notes live in [`/data/README.md`](../data/README.md). SPROUT's license is unresolved, so check that file before publishing results.
+- Dataset source and license notes live in [`/data/README.md`](../data/README.md). SPROUT's license question is resolved (26 Oct 2026); the shared derived files, including `labels/labels_v1.csv`, are committed.
 
 ## Relationship to the root `CLAUDE.md`
 

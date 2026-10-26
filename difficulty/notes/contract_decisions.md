@@ -12,4 +12,4 @@ Status "not sent" means nobody has recorded sending it yet; update when sent.
 | 5 | Which GPUs and how much VRAM do the two laptops have? | Unknown; may force the 3B -> 8B local stand-in pair | not sent | |
 | 6 | Which CPU should the latency target be measured on? | Report CPU model and thread count with the numbers | not sent | |
 
-Also open from the SPROUT side: **license.** SPROUT's Hugging Face page shows no license. Question for Prof. Khalil: "Can we use it for research and report results on it?" Status: not sent.
+SPROUT license: **resolved 26 Oct 2026** (see `data/README.md`).
