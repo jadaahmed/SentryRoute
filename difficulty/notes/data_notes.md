@@ -59,10 +59,10 @@ Implications for Stage 2:
 | lighteval/MATH/all/test | 1,735 | 381 | 356 | 2,472 |
 | Idavidrein/gpqa/gpqa_extended | 384 | 63 | 94 | 541 |
 | TAUR-Lab/MuSR (3 variants) | 163 / 185 / 176 | 39 / 27 / 35 | 46 / 38 / 39 | 248 / 250 / 250 |
-| ragbench (11 sources) | 82–167 | 16–39 | 15–39 | 131–241 |
+| ragbench (12 sources, 1,827 prompts, 4.1% of data) | 82–167 | 16–39 | 15–39 | 131–241 |
 
 Flags:
-- 15 of 20 sources have fewer than 50 prompts in at least one split (all MuSR and all 11 ragbench sources). Per-source AUROC in Stage 6 (needs 50 easy and 50 hard test prompts) will realistically be possible only for openhermes, MMLU-Pro, the two MATH sources and maybe GPQA. Say so in the report.
+- 15 of 20 sources have fewer than 50 prompts in at least one split (all 3 MuSR and all 12 ragbench sources). Per-source AUROC in Stage 6 (needs 50 easy and 50 hard test prompts) will realistically be possible only for openhermes, MMLU-Pro, the two MATH sources and maybe GPQA. Say so in the report.
 - Three sources (openhermes, MMLU-Pro, MATH) are about 93% of the data, so overall AUROC will be dominated by them, and the source-prior baseline is likely to be strong. Keep it in its own labelled row.
 - Stage 3 stratification: many source × label cells will be under 2 prompts in the validation halves, so the shared "other" stratum rule is needed.
 
@@ -84,7 +84,35 @@ Truncation (2,048, keep first 1,536 + last 512) will hit mostly three sources:
 
 Only ragbench sources and 2 GPQA items exceed the limit. For cuad and techqa most prompts are truncated, so expect weaker results there; these are also tiny sources. Record in the limits.
 
-## To fill in by hand
-- [ ] 20 random rows read (`notes/sample_20_rows.md`): does a wrong answer get a low score? ______
-- [ ] Judge red-flag check, 30 rows (`notes/redflag_30_rows.md`): ___ / 30 judge scores looked wrong
-- [ ] Anything odd in a source (broken prompts, empty answers)? ______
+## Judge quality: hand-check results (Stage 1 steps 4 and 6)
+
+Judged model: `openai-gpt-4o`. Reviewed 20 random rows (`sample_20_rows.md`) and a 30-row source-stratified red-flag sample (`redflag_30_rows.md`). **Verdict: the judge is not broken. Proceed to Stage 2.** Every clearly wrong answer got a low score and no clearly wrong answer got a high one.
+
+| Check | Result | 95% interval |
+|---|---|---|
+| 20 random rows: wrong answers score low? | 17 scored 1.0, 3 scored 0.0. Both clear failures got 0.0. One likely false negative (`abd10cc72465`, 0.0, the question is underspecified and the golden answer assumes an unstated value), two minor borderline 1.0s | 1 of 20 wrong: 0.9% to 23.6% |
+| 30-row red-flag: scores that look wrong | 3 wrong (rows 3, 10, 23), 1 borderline (row 24); 26 of 30 correct | 3 of 30: 3.5% to 25.6%; with borderline 4 of 30: 5.3% to 29.7% |
+
+The two samples may overlap, so they are not pooled. Intervals are Wilson intervals: with this few rows they are wide.
+
+**Most disagreements do not change a label.** The cutoff is 0.5. The flagged scores of 0.8 or 0.9 stay above it even when corrected (rows 3, 23, 24), so easy/hard would not change. Rows that could cross the cutoff: `abd10cc72465` (likely false negative, 0.0) and row 10 (golden answer wrong, judge gave 0.8, "should be lower"; by how much is unclear). Row 22 (techqa, 0.0) is defensible. So roughly 1 to 2 of the 50 rows reviewed could flip a label: about 2% to 4%, uncertain. The full 100-row check (Stage 1b) will give the figure the report cites.
+
+**Flagged rows**
+
+| Row | Source | Judge | Issue |
+|---|---|---|---|
+| 3 | openhermes/teknium | 0.8 | Open-ended creative task. Judge penalized using a sea turtle instead of the golden's octopus; response met all requirements |
+| 10 | ragbench/delucionqa | 0.8 | Golden answer is wrong (mixed two manual sections). Judge docked the model for omitting wrong causes |
+| 23 | ragbench/msmarco | 0.8 | Golden is about the Broad Run stream in Loudoun County; the model correctly said Broad Run, VA is in Fauquier County |
+| 24 | ragbench/hagrid | 0.9 | Garbled sentence in the response (temperature missing); 0.7 to 0.8 is fairer |
+| 7 | GPQA | 0.0 | Score right, but the justification says the model was "mostly correct"; it missed a carbocation rearrangement |
+| 22 | ragbench/techqa | 0.0 | Score defensible, but the golden answer comes from an unrelated document |
+
+Also noted in the 20-row sample: `97592a440ebb` (borderline 1.0, defensible answer that differs from the golden), `ea71eb800c47` (SGLT2 called an enzyme, still 1.0), and a self-contradicting justification on the reticular-formation row (score right).
+
+**What this means**
+- **Bad golden answers in ragbench.** Three of the 30 red-flag rows (10, 22, 23) had broken golden answers, all ragbench. The judge treats the golden as truth. Ragbench is 4.1% of the data (1,827 prompts) and most of its sources are too small for per-source results anyway, but labels there are noisier. State this in the limits. Auditing delucionqa, techqa and msmarco goldens is optional follow-up.
+- **Open-ended tasks** are judged against a single reference answer (row 3, and the magic-show row). The stored SPROUT scores cannot be changed, so a judge rule such as "for open-ended tasks, grade against the task requirements" belongs to **Phase 2**, when we label with our own judge on the real pool.
+- **Truncated responses.** Rows 1, 7, 12 and 17 (red-flag) and five rows in the sample were cut off before the final answer. The reviewer checked the answers independently where possible (rows 1, 2, 12, 17, 21 verified by hand) but relied on the judge's summary for some. Treat the check as slightly generous to the judge.
+- **Single model.** Only `openai-gpt-4o` was checked. Labels use four models, so the 100-row check in Stage 1b should include scores from the other three.
+
