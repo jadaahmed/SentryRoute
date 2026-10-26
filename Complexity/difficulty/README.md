@@ -68,4 +68,4 @@ Never rename or overwrite a shared file in place: a new version gets a new name 
 
 ## Relationship to the root `CLAUDE.md`
 
-`CLAUDE.md` was updated on 22 Oct 2026 to describe this Phase 1 design (two heads, tier rule, SPROUT labels, latency split). If this folder and `CLAUDE.md` disagree, fix both in the same PR. Pending items (per-pool field, tier to model mapping) are in its Open questions table.
+`CLAUDE.md` was updated on 22 Oct 2026 to describe this Phase 1 design (two heads, tier rule, SPROUT labels, latency split). If this folder and `CLAUDE.md` disagree, fix both in the same PR. The per-pool `pools` field was agreed on 26 Oct 2026 (contract v2); the only pending contract item is the tier to model mapping, in its Open questions table.

@@ -1,0 +1,500 @@
+openapi: 3.1.0
+info:
+  title: SentryRoute gateway
+  version: 0.2.0
+  description: |
+    Public gateway contract. OpenAI Chat Completions unchanged, plus SentryRoute-only endpoints.
+    Transcribed from "SentryRoute - Tech Stack & Gateway API Contract" (21 Oct 2026, Karim) with the
+    v2 change of 26 Oct 2026 (per-pool complexity answer). DRAFT: Karim to review and confirm before
+    this becomes the source of truth and the spec-drift check is switched on.
+    The internal classifier contract is in `classifier.openapi.yaml` (private network only).
+    Not defined by the 21 Oct contract and left open here: the policy document body (`Policy`),
+    the exact shape of `/v1/stats/savings` buckets and of the `/v1/models` entries.
+servers:
+  - url: http://localhost:8080
+security:
+  - bearerAuth: []
+tags:
+  - name: chat
+  - name: audit
+  - name: policy
+  - name: ops
+paths:
+  /v1/chat/completions:
+    post:
+      tags: [chat]
+      operationId: createChatCompletion
+      summary: OpenAI-compatible chat completion; routes when model is sentryroute/auto
+      description: |
+        Scope `chat`. Images and audio parts are rejected with 400 `unsupported_content`.
+        With `stream: true` the response is SSE `chat.completion.chunk` objects ending with `data: [DONE]`.
+        The decision is made before the upstream call, so the routing headers arrive with the first byte.
+        The last chunk before `[DONE]` carries `usage` (when `stream_options.include_usage` is set) and the
+        `sentryroute` object. Fallback to another model only happens before the first token; an upstream
+        failure mid-answer ends the stream with an error event.
+      x-required-scope: chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ChatCompletionRequest' }
+      responses:
+        '200':
+          description: Completion, with routing metadata in headers and body
+          headers:
+            X-SentryRoute-Decision-Id: { $ref: '#/components/headers/DecisionId' }
+            X-SentryRoute-Model: { $ref: '#/components/headers/RouteModel' }
+            X-SentryRoute-Locality: { $ref: '#/components/headers/RouteLocality' }
+            X-SentryRoute-Sensitivity: { $ref: '#/components/headers/RouteSensitivity' }
+            x-ratelimit-remaining-requests: { schema: { type: integer } }
+            x-ratelimit-remaining-tokens: { schema: { type: integer } }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ChatCompletionResponse' }
+            text/event-stream:
+              schema: { type: string, description: 'SSE chat.completion.chunk objects, then data: [DONE]' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '422': { $ref: '#/components/responses/NoEligibleModel' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '502': { $ref: '#/components/responses/UpstreamError' }
+        '503': { $ref: '#/components/responses/LocalModelUnavailable' }
+        '504': { $ref: '#/components/responses/UpstreamTimeout' }
+  /v1/route:
+    post:
+      tags: [chat]
+      operationId: routeOnly
+      summary: Run both classifiers and the router, return the decision, call no model
+      x-required-scope: chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ChatCompletionRequest' }
+      responses:
+        '200':
+          description: The routing decision
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SentryRouteMetadata' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '422': { $ref: '#/components/responses/NoEligibleModel' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+  /v1/models:
+    get:
+      tags: [chat]
+      operationId: listModels
+      summary: sentryroute/auto, sentryroute/local and every backend model with locality, tier and price
+      x-required-scope: chat
+      responses:
+        '200':
+          description: Model list
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [object, data]
+                properties:
+                  object: { type: string, enum: [list] }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/Model' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /v1/decisions:
+    get:
+      tags: [audit]
+      operationId: listDecisions
+      summary: Decision records filtered by time, label, locality, model or tag; cursor paging
+      x-required-scope: 'audit:read'
+      parameters:
+        - { name: created_after, in: query, schema: { type: string, format: date-time } }
+        - { name: created_before, in: query, schema: { type: string, format: date-time } }
+        - { name: label, in: query, schema: { $ref: '#/components/schemas/SensitivityLabel' } }
+        - { name: locality, in: query, schema: { $ref: '#/components/schemas/Locality' } }
+        - { name: model, in: query, schema: { type: string } }
+        - name: tag
+          in: query
+          description: 'Filter by tag as key:value, e.g. app:crm-assistant'
+          schema: { type: string }
+        - { name: cursor, in: query, schema: { type: string } }
+        - { name: limit, in: query, schema: { type: integer, minimum: 1, maximum: 200, default: 50 } }
+      responses:
+        '200':
+          description: A page of decision records
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/DecisionRecord' }
+                  next_cursor: { type: [string, 'null'] }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /v1/decisions/{decision_id}:
+    get:
+      tags: [audit]
+      operationId: getDecision
+      summary: One decision record
+      x-required-scope: 'audit:read'
+      parameters:
+        - { name: decision_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: The decision record
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/DecisionRecord' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /v1/stats/savings:
+    get:
+      tags: [audit]
+      operationId: getSavings
+      summary: Actual cost vs baseline-model cost, bucketed by day or week
+      x-required-scope: 'audit:read'
+      parameters:
+        - { name: bucket, in: query, schema: { type: string, enum: [day, week], default: day } }
+        - { name: created_after, in: query, schema: { type: string, format: date-time } }
+        - { name: created_before, in: query, schema: { type: string, format: date-time } }
+      responses:
+        '200':
+          description: Savings per bucket
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [bucket, data]
+                properties:
+                  bucket: { type: string, enum: [day, week] }
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required: [start, actual_usd, baseline_usd, saved_usd]
+                      properties:
+                        start: { type: string, format: date-time }
+                        requests: { type: integer }
+                        actual_usd: { type: number }
+                        baseline_usd: { type: number }
+                        saved_usd: { type: number }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /v1/policies/{policy_id}:
+    parameters:
+      - { name: policy_id, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [policy]
+      operationId: getPolicy
+      summary: Read a routing policy
+      x-required-scope: admin
+      responses:
+        '200':
+          description: The policy
+          headers:
+            ETag: { schema: { type: string }, description: Version to send back in If-Match }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Policy' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [policy]
+      operationId: putPolicy
+      summary: Replace a routing policy (needs If-Match)
+      x-required-scope: admin
+      parameters:
+        - { name: If-Match, in: header, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Policy' }
+      responses:
+        '200':
+          description: The stored policy
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Policy' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '412':
+          description: Stale If-Match (`policy_version_conflict`)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+  /healthz:
+    get:
+      tags: [ops]
+      operationId: healthz
+      summary: Liveness
+      security: []
+      responses:
+        '200': { description: Alive }
+  /readyz:
+    get:
+      tags: [ops]
+      operationId: readyz
+      summary: Readiness; also checks the classifiers and the database
+      security: []
+      responses:
+        '200': { description: Ready }
+        '503': { description: Not ready }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authorization: Bearer sr_... Each key maps to one tenant, a default policy and scopes (chat, audit:read, admin). Keys are stored hashed.'
+  headers:
+    DecisionId: { schema: { type: string }, description: Decision record id }
+    RouteModel: { schema: { type: string }, description: Backend model that answered }
+    RouteLocality: { schema: { $ref: '#/components/schemas/Locality' } }
+    RouteSensitivity: { schema: { $ref: '#/components/schemas/SensitivityLabel' }, description: The sensitivity label }
+  responses:
+    BadRequest:
+      description: '`invalid_request` (malformed body or unknown model) or `unsupported_content` (image or audio parts)'
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+    Unauthorized:
+      description: '`invalid_api_key` (missing, unknown or revoked key)'
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+    Forbidden:
+      description: '`scope_denied` (key lacks the scope) or `sensitive_content_blocked` (policy blocks this label)'
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+    NotFound:
+      description: '`not_found` (unknown decision or policy id)'
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+    NoEligibleModel:
+      description: '`no_eligible_model` (nothing fits the label, tier and budget together)'
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+    RateLimited:
+      description: '`rate_limited`; Retry-After says when to retry'
+      headers:
+        Retry-After: { schema: { type: integer } }
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+    UpstreamError:
+      description: '`upstream_error` (provider failed after fallbacks)'
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+    LocalModelUnavailable:
+      description: '`local_model_unavailable` (sensitive request but the local pool is down; never falls back to external)'
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+    UpstreamTimeout:
+      description: '`upstream_timeout` (provider did not answer in time)'
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  schemas:
+    Locality: { type: string, enum: [local, external] }
+    SensitivityLabel: { type: string, enum: [public, internal, confidential, restricted] }
+    ComplexityTier: { type: string, enum: [simple, moderate, complex] }
+    ReasonCode:
+      type: string
+      enum:
+        - CHEAPEST_FOR_TIER
+        - SENSITIVE_LOCAL_ONLY
+        - CLASSIFIER_FAILED_CLOSED
+        - PINNED_BY_CLIENT
+        - PINNED_REROUTED_SENSITIVE
+        - BUDGET_LIMIT
+        - MIN_TIER_FLOOR
+        - FALLBACK_AFTER_UPSTREAM_ERROR
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [message, type, code]
+          properties:
+            message: { type: string }
+            type: { type: string, example: policy_error }
+            code:
+              type: string
+              enum:
+                - invalid_request
+                - unsupported_content
+                - invalid_api_key
+                - scope_denied
+                - sensitive_content_blocked
+                - not_found
+                - policy_version_conflict
+                - no_eligible_model
+                - rate_limited
+                - upstream_error
+                - local_model_unavailable
+                - upstream_timeout
+            param: { type: [string, 'null'] }
+            decision_id: { type: string, description: Present when a decision exists }
+    SentryRouteRequestExtension:
+      type: object
+      description: Optional `sentryroute` object next to the normal fields (extra_body in the OpenAI Python SDK).
+      properties:
+        policy_id: { type: string, description: Defaults to the API key's policy }
+        max_cost_usd: { type: number, description: The router skips models whose estimated cost is above this }
+        min_tier: { $ref: '#/components/schemas/ComplexityTier' }
+        tags:
+          type: object
+          maxProperties: 10
+          additionalProperties: { type: string }
+    ChatCompletionRequest:
+      type: object
+      description: OpenAI Chat Completions request, unchanged. Unknown OpenAI fields (temperature, max_tokens, tools, response_format, stream, stream_options, ...) pass through to the chosen model untouched.
+      required: [model, messages]
+      additionalProperties: true
+      properties:
+        model:
+          type: string
+          description: sentryroute/auto (router picks), sentryroute/local (forces the local pool) or a concrete backend model id from GET /v1/models (pinned; sensitivity still runs).
+        messages:
+          type: array
+          items: { type: object, additionalProperties: true }
+        stream: { type: boolean }
+        sentryroute: { $ref: '#/components/schemas/SentryRouteRequestExtension' }
+    ChatCompletionResponse:
+      type: object
+      description: OpenAI chat.completion object plus a `sentryroute` object. OpenAI SDKs ignore unknown fields.
+      additionalProperties: true
+      properties:
+        model: { type: string, description: The model that actually answered }
+        sentryroute: { $ref: '#/components/schemas/SentryRouteMetadata' }
+    Route:
+      type: object
+      properties:
+        model: { type: string }
+        provider: { type: string }
+        locality: { $ref: '#/components/schemas/Locality' }
+        reason_codes:
+          type: array
+          items: { $ref: '#/components/schemas/ReasonCode' }
+    RoutingSensitivity:
+      type: object
+      properties:
+        label: { $ref: '#/components/schemas/SensitivityLabel' }
+        score: { type: number }
+        categories: { type: array, items: { type: string } }
+        degraded: { type: boolean }
+    RoutingComplexity:
+      type: object
+      description: Tier and score of the pool the router used (v2); `pool` says which.
+      properties:
+        tier: { $ref: '#/components/schemas/ComplexityTier' }
+        score: { type: number, description: Higher = more complex }
+        pool: { $ref: '#/components/schemas/Locality' }
+        degraded: { type: boolean }
+    SentryRouteMetadata:
+      type: object
+      properties:
+        decision_id: { type: string }
+        route: { $ref: '#/components/schemas/Route' }
+        sensitivity: { $ref: '#/components/schemas/RoutingSensitivity' }
+        complexity: { $ref: '#/components/schemas/RoutingComplexity' }
+        cost:
+          type: object
+          properties:
+            actual_usd: { type: number }
+            baseline_usd: { type: number }
+        overhead_ms: { type: integer }
+    Model:
+      type: object
+      description: OpenAI model object plus SentryRoute fields. Exact fields beyond these are open.
+      required: [id, object]
+      additionalProperties: true
+      properties:
+        id: { type: string }
+        object: { type: string, enum: [model] }
+        locality: { $ref: '#/components/schemas/Locality' }
+        tier: { type: string, description: Complexity tier this model serves }
+        price: { type: object, additionalProperties: true }
+    Policy:
+      type: object
+      description: OPEN. The 21 Oct contract does not define the policy body; Karim and the policy owner to specify (label to action, tier to model, sensitive_action).
+      required: [policy_id]
+      additionalProperties: true
+      properties:
+        policy_id: { type: string }
+        version: { type: string }
+    DecisionRecord:
+      type: object
+      description: One MongoDB document per request. The only data the audit dashboard reads. Never contains message or completion text, PII values or API keys.
+      properties:
+        decision_id: { type: string }
+        created_at: { type: string, format: date-time }
+        tenant_id: { type: string }
+        api_key_id: { type: string }
+        policy_id: { type: string }
+        policy_version: { type: string }
+        tags: { type: object, additionalProperties: { type: string } }
+        request:
+          type: object
+          properties:
+            message_count: { type: integer }
+            input_tokens_est: { type: integer }
+            prompt_hmac: { type: string, description: Keyed hash, so short prompts cannot be brute-forced back }
+        sensitivity:
+          type: object
+          properties:
+            label: { $ref: '#/components/schemas/SensitivityLabel' }
+            score: { type: number }
+            categories:
+              type: array
+              items:
+                type: object
+                properties:
+                  type: { type: string }
+                  count: { type: integer }
+            model_version: { type: string }
+            latency_ms: { type: integer }
+            degraded: { type: boolean }
+        complexity:
+          type: object
+          properties:
+            tier: { $ref: '#/components/schemas/ComplexityTier' }
+            score: { type: number }
+            signals: { type: array, items: { type: string } }
+            model_version: { type: string }
+            latency_ms: { type: integer }
+            degraded: { type: boolean }
+            pools:
+              type: object
+              description: v2. Both pools' answers; absent when the classifier did not return them.
+              properties:
+                external: { $ref: '#/components/schemas/PoolResult' }
+                local: { $ref: '#/components/schemas/PoolResult' }
+            pool_used: { $ref: '#/components/schemas/Locality' }
+        route:
+          type: object
+          properties:
+            model: { type: string }
+            provider: { type: string }
+            locality: { $ref: '#/components/schemas/Locality' }
+            reason_codes: { type: array, items: { $ref: '#/components/schemas/ReasonCode' } }
+            attempts: { type: integer }
+        outcome:
+          type: object
+          properties:
+            status: { type: string, enum: [ok, blocked, upstream_error, client_cancelled] }
+            http_status: { type: integer }
+            input_tokens: { type: integer }
+            output_tokens: { type: integer }
+            ttft_ms: { type: integer }
+            total_ms: { type: integer }
+        cost:
+          type: object
+          properties:
+            actual_usd: { type: number }
+            baseline_usd: { type: number }
+            saved_usd: { type: number }
+    PoolResult:
+      type: object
+      required: [tier, score]
+      properties:
+        tier: { $ref: '#/components/schemas/ComplexityTier' }
+        score: { type: number, minimum: 0, maximum: 1 }

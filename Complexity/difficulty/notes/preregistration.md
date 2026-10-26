@@ -21,7 +21,7 @@ Honesty note: Stage 1 (descriptive statistics of SPROUT, including a rough easy/
 | Gate 3 | Test under-routing about 12% or lower, judged with its CI |
 | Seed | 42 (a fixed starting number for random choices, so anyone can recreate the same split) |
 | **[v2.3]** Tier rule (per pool, p = P(cheap model adequate)) | `simple`: p >= tau + 0.1 · `moderate`: tau <= p < tau + 0.1 · `complex`: p < tau. Contract `score` = 1 − p (higher = more complex) |
-| **[v2.3]** Tier and score the gateway sees | The more complex of the two pools' results (safe: never routes cheaper than either pool allows), pending the contract author's answer to open question 1 |
+| **[v2.3]** Tier and score the gateway sees | Both pools' results in `pools: {external, local}` (contract v2, agreed 26 Oct 2026). Top-level `tier` and `score` = the more complex of the two (safe default for consumers that ignore `pools`). The gateway reads the pool for its route's locality |
 | **[v2.3]** Serving input rule | Flatten `messages` to one text: all turns in order, separated by blank lines, last user turn last. If over 2,048 tokens, keep the first 1,536 and last 512. A single-turn SPROUT prompt is already in this form |
 | **[v2.3]** Latency budget | 250 ms deadline per check; target routing overhead under 100 ms at p95 on CPU for prompts under 2,000 tokens (the contract's proposed target) |
 
@@ -52,4 +52,4 @@ Details: `difficulty/notes/stage2_labels.md`.
 
 | Date | Change | Reason | By |
 |---|---|---|---|
-| | | | |
+| 2026-10-26 | Gateway contract v2 adds the optional per-pool answer (`pools`); the "tier and score the gateway sees" row now returns both pools plus the more complex one at the top level | Karim agreed to the proposal; removes the over-routing of prompts that are only hard for the other pool (5,194 prompts, 11.7%, are easy external / hard local) | Heshmat |
