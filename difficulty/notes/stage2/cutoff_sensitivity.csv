@@ -1,0 +1,5 @@
+cutoff,pool,labels_changed,pct_of_all,easy_pct,hard_pct,infeasible_pct
+0.4,external,120,0.27,82.4,7.8,9.8
+0.4,local,368,0.83,72.4,17.3,10.3
+0.6,external,22,0.05,82.2,7.8,10.0
+0.6,local,45,0.1,71.9,17.4,10.8

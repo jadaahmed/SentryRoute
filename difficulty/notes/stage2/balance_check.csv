@@ -1,0 +1,3 @@
+pool,easy,hard,hard_pct_of_labelled,infeasible_pct_of_all,needs_class_weights,suggested_weight_on_hard_class,flag_backup_pair
+external,36382,3454,8.7,10.0,True,10.53,False
+local,31820,7666,19.4,10.7,False,4.15,False
