@@ -20,9 +20,9 @@ Source of truth for the full method: [`docs/phase1_plan_v2.4.md`](docs/phase1_pl
 | Stage | Owner | Status |
 |---|---|---|
 | 0 Setup, contract questions, mock service | Sameh | not started in this repo |
-| 1 Understand SPROUT | Heshmat | **analysis done** ([`notes/data_notes.md`](notes/data_notes.md)); hand-reading of 20 + 30 rows still to do |
+| 1 Understand SPROUT | Heshmat | **done.** Analysis and judge hand-check in [`notes/data_notes.md`](notes/data_notes.md): judge not broken, proceed to Stage 2 |
 | 1b 100-row judge hand-check | Heshmat | later (days 5-7) |
-| 2 Labels | Heshmat | next |
+| 2 Labels | Heshmat | **next** (open: laptop VRAM check for the local pair) |
 | 3 Splits (frozen) | Heshmat | after 2 |
 | 4-9 | others | waiting on frozen labels and split |
 
