@@ -10,9 +10,9 @@ __pycache__/
 # os / editor
 .DS_Store
 # local data and weights (never commit)
-data/raw/
-difficulty/models/*
-!difficulty/models/README.md
+**/data/raw/
+Complexity/difficulty/models/*
+!Complexity/difficulty/models/README.md
 *.safetensors
 *.pt
 *.bin

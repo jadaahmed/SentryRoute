@@ -1,6 +1,6 @@
 # Pre-registration (Phase 1 difficulty classifier)
 
-Copied verbatim from `difficulty/docs/phase1_plan_v2.4.md` on 21 Oct 2026, before any labels, splits, baselines or classifier results existed.
+Copied verbatim from `Complexity/difficulty/docs/phase1_plan_v2.4.md` on 21 Oct 2026, before any labels, splits, baselines or classifier results existed.
 Changing a choice later is allowed only with a written reason and date, added to the change log at the bottom.
 
 Honesty note: Stage 1 (descriptive statistics of SPROUT, including a rough easy/hard/infeasible preview at cutoff 0.5) had already been run when this file was written. No model was trained and no baseline was scored.
@@ -46,7 +46,7 @@ Not changes to the table above (class weights were left to Stage 2); recorded he
 | Local pair | unchanged for now. Laptop-VRAM check still open; if it forces a switch, rerun Stage 2 with the backup pair **before any training** and log it below |
 | Cutoff | 0.5 unchanged (only 0.07% / 0.11% of prompts lie within 0.1 of it) |
 
-Details: `difficulty/notes/stage2_labels.md`.
+Details: `Complexity/difficulty/notes/stage2_labels.md`.
 
 ## Change log
 

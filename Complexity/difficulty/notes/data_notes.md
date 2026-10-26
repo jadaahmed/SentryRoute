@@ -34,7 +34,7 @@ Missing scores for the four pipeline models: 0. Scores outside [0, 1]: 0. (Missi
 | llama-3.1-8b | 0.690 | 74.5 | 0.07 | 71.9 |
 | llama-3.3-70b | 0.806 | 69.7 | 0.04 | 84.2 |
 
-Reading: scores are mostly 0 or 1 but not all (e.g. 0.9 appears); almost nothing sits near 0.5 (at most 0.07%), so the 0.5 cutoff is natural and the rule-sensitivity check (0.4 / 0.6) should change very few labels. Keep the 0.5 cutoff. Histograms: `difficulty/notes/stage1/score_histograms.png`.
+Reading: scores are mostly 0 or 1 but not all (e.g. 0.9 appears); almost nothing sits near 0.5 (at most 0.07%), so the 0.5 cutoff is natural and the rule-sensitivity check (0.4 / 0.6) should change very few labels. Keep the 0.5 cutoff. Histograms: `Complexity/difficulty/notes/stage1/score_histograms.png`.
 
 ## Label preview at cutoff 0.5 (NOT final; Stage 2 produces the real labels)
 | pool | easy | hard | infeasible |

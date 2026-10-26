@@ -1,6 +1,6 @@
 Mark each: score looks right? (Y/N)
 
-Reviewed 26 Oct 2026 (model: openai-gpt-4o): 26 of 30 right, 3 wrong (rows 3, 10, 23), 1 borderline (row 24). Summary and implications: difficulty/notes/data_notes.md
+Reviewed 26 Oct 2026 (model: openai-gpt-4o): 26 of 30 right, 3 wrong (rows 3, 10, 23), 1 borderline (row 24). Summary and implications: Complexity/difficulty/notes/data_notes.md
 
 ### 1. lighteval/MATH/all | 38e6f5b023b3 | openai-gpt-4o score=1.0
 PROMPT: Sets $A$ and $B$, shown in the Venn diagram, are such that the total number of elements in set $A$ is twice the total number of elements in set $B$. Altogether, there are 3011 elements in the union of $A$ and $B$, and their intersection has 1000 elements. What is the total number of elements in set $A$?

@@ -41,8 +41,8 @@ Use a fresh virtual environment (the `dev` conda env had a NumPy 1.x clash with 
 
 ```bash
 python3 -m venv .venv-sprout && source .venv-sprout/bin/activate
-pip install -r difficulty/requirements-stage1.txt
-python difficulty/scripts/stage1_explore.py --out difficulty/notes/stage1 \
+pip install -r Complexity/difficulty/requirements-stage1.txt
+python Complexity/difficulty/scripts/stage1_explore.py --out Complexity/difficulty/notes/stage1 \
   --response-field response --judge-field judge_response --score-field score
 ```
 
