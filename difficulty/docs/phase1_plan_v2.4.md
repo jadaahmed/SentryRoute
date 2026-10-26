@@ -80,6 +80,8 @@ Source: "SentryRoute — Tech Stack & Gateway API Contract" (21 Oct 2026, @karim
 | Local models are small 4-bit models sized to two laptops' VRAM; the external models are still to be chosen | Day-1 check on the local stand-in pair (Stage 0) |
 | Images and audio are out of scope for v1 | Text only |
 
+**Update 26 Oct 2026:** question 1 below is answered. Contract v2 adds an optional `pools: {external, local}` to the complexity response (each `{tier, score}`), keeps the top-level `tier`/`score` as the more complex of the two, and the router reads `pools[locality]`. Question 3 (higher score = more complex) is answered yes. Where this section says the gateway sees only the more complex pool, read it as the fallback for consumers that ignore `pools`. See `notes/contract_decisions.md`.
+
 **Our two heads, in contract terms.** The contract has one `tier` and one `score`, but we have a head per pool. Internally we keep `p_cheap_ext` (external pool) and `p_small_loc` (local pool), each the probability that the pool's cheap model is adequate. The tier rule converts each to a tier. The gateway sees the more complex of the two as the top-level `tier` and `score`, so it works with the contract as it stands. Per-pool results are kept in our own files.
 
 **Open questions for the contract author (send on day 1):**
