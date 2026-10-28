@@ -7,3 +7,4 @@ numpy==2.5.4
 matplotlib==3.11.2
 tabulate==0.10.0
 transformers==5.20.2
+datasketch==2.0.0  # Stage 3 MinHash, named in the plan (Stage 3 step 3); team approval asked in the Stage 3 PR
