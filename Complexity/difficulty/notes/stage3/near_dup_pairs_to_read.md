@@ -1,6 +1,6 @@
 # Near-duplicate pairs to read (Stage 3 step 3)
 
-317 flagged pairs; 20 shown. For each, write `real duplicate` or `not a duplicate` under the verdict line. Record the count in the Stage 3 notes.
+317 flagged pairs; 20 shown. Verdicts by Heshmat, 29 Oct 2026 (full text checked): 7 real duplicates, 13 same passage with a different question, 0 unrelated.
 
 ## Pair 1: near_0.97 (train, TAUR-Lab/MuSR/object_placements) vs (test, TAUR-Lab/MuSR/object_placements)
 
@@ -8,21 +8,33 @@
 
 ```
 Story:
-Olivia, drained after another demanding day at the office, rushed home for the evening, unaware that she had left behind her mobile phone filled with photos that were priceless to her. Her workspace, scattered with papers, was also home to her half-drunk cup of coffee. Ben, the ever-curious co-worker, could never resist an unmanned desk. As the day dwindled, his habit of sneaking glances at his colleagues' desks was well-known, making him aware, as everybody else was, about the location of Olivia's missing phone and the abandoned cup of coffee. Emily, the dedicated night janitor, had the solemn task of tidying up the workspaces long after everyone else had gone home, including safely storing or returning forgotten belongings. Each person was familiar of each item's location and the significance it held for the frantic Olivia.
+Olivia, drained after another demanding day at the office, rushed home for the evening, unaware that she had left behind her mobile phone filled with photos that were priceless to her. Her workspace, scattered with papers, was also home to her half-drunk cup of coffee. Ben, the ever-curious co-worker, could never resist an unmanned desk. As the day dwindled, his habit of sneaking glances at his colleagues' desks was well-known, making him aware, as everybody else was, about the location of Olivia's missing phone and the abandoned cup of coffee. Emily, the dedicated night janitor, had the solemn task of tidying up the workspaces long after everyone else had gone home, including safely 
+[...]
+via tried not to let her imagination get the best of her. For now, all she could do was to watch in silence as Emily went about her duties. And while the echo of the clinking ceramics was the only sound that managed to pierce the eerie quiet of the deserted office, it was enough to signal another successful night for Emily. The office space, now as pristine as a picture, and the lingering scent of cleaning products served as a quiet testament to her dedication and professionalism. A fitting end to another day in the office, with a conclusion that was silently eloquent in its simplicity, doubtlessly waiting for the dawn of a new day.
 
-In the after-hours silence of the office, Ben's curiosity led him to quietly place Olivia's forgotten mobile safe in the confines of her desk drawer. An otherwise casual act fueled by intentions known only to him. Emily, serving her role as supervisor, maintained a vigilant eye, undeterred by the demand for constant surveillance of the office premises over the long hours of her shift. As she patrolled the silent and deserted workspace, she concluded her formative night's duty with the safekeeping of left behind items and ensuring the sanctity of the workplace. Meanwhile, Olivia, in a weary yet frantic rush, decided to retrace her hurried steps ba [...]
+Question: Which location is the most likely place Ben would look to find the cup of coffee given the story?
+
+Choices: Lost and Found box,desk,drawer,kitchen
+
+
 ```
 
 **B** `c8841e71b30c`
 
 ```
 Story:
-Olivia, drained after another demanding day at the office, rushed home for the evening, unaware that she had left behind her mobile phone filled with photos that were priceless to her. Her workspace, scattered with papers, was also home to her half-drunk cup of coffee. Ben, the ever-curious co-worker, could never resist an unmanned desk. As the day dwindled, his habit of sneaking glances at his colleagues' desks was well-known, making him aware, as everybody else was, about the location of Olivia's missing phone and the abandoned cup of coffee. Emily, the dedicated night janitor, had the solemn task of tidying up the workspaces long after everyone else had gone home, including safely storing or returning forgotten belongings. Each person was familiar of each item's location and the significance it held for the frantic Olivia.
+Olivia, drained after another demanding day at the office, rushed home for the evening, unaware that she had left behind her mobile phone filled with photos that were priceless to her. Her workspace, scattered with papers, was also home to her half-drunk cup of coffee. Ben, the ever-curious co-worker, could never resist an unmanned desk. As the day dwindled, his habit of sneaking glances at his colleagues' desks was well-known, making him aware, as everybody else was, about the location of Olivia's missing phone and the abandoned cup of coffee. Emily, the dedicated night janitor, had the solemn task of tidying up the workspaces long after everyone else had gone home, including safely 
+[...]
+ivia tried not to let her imagination get the best of her. For now, all she could do was to watch in silence as Emily went about her duties. And while the echo of the clinking ceramics was the only sound that managed to pierce the eerie quiet of the deserted office, it was enough to signal another successful night for Emily. The office space, now as pristine as a picture, and the lingering scent of cleaning products served as a quiet testament to her dedication and professionalism. A fitting end to another day in the office, with a conclusion that was silently eloquent in its simplicity, doubtlessly waiting for the dawn of a new day.
 
-In the after-hours silence of the office, Ben's curiosity led him to quietly place Olivia's forgotten mobile safe in the confines of her desk drawer. An otherwise casual act fueled by intentions known only to him. Emily, serving her role as supervisor, maintained a vigilant eye, undeterred by the demand for constant surveillance of the office premises over the long hours of her shift. As she patrolled the silent and deserted workspace, she concluded her formative night's duty with the safekeeping of left behind items and ensuring the sanctity of the workplace. Meanwhile, Olivia, in a weary yet frantic rush, decided to retrace her hurried steps ba [...]
+Question: Which location is the most likely place Ben would look to find the mobile phone given the story?
+
+Choices: Lost and Found box,desk,drawer,kitchen
+
+
 ```
 
-Verdict: 
+Verdict: same passage, different question (removed as shared-passage leak)
 
 ## Pair 2: near_1.00 (train, TAUR-Lab/MuSR/object_placements) vs (calibration, TAUR-Lab/MuSR/object_placements)
 
@@ -30,21 +42,41 @@ Verdict:
 
 ```
 Story:
-Frank, an eager student, had enrolled in Marcy's yoga class with the hope of improving his flexibility. A keen observer, he found learning by watching Marcy enact the postures much more instructive than attempting them on his own. Marcy was a meticulous instructor, ensuring her students understood the positions correctly as she demonstrated on her yoga mat. She always knew exactly where her yoga mat was, in the storage cabin, ready to be rolled out on the studio floor for her demonstrations. Nearby, a water bottle was always kept in the yoga hall, a reminder to stay hydrated during the sessions. Lisa, the diligent janitor of the setup, was responsible for maintaining the studio's cleanliness and keeping things in their place. Everyone, Marcy, Frank, and even Lisa, knew the locations of these essential items. They were all aware that the yoga mat was in the storage cabin, and the water bottle was in the yoga hall.
+Frank, an eager student, had enrolled in Marcy's yoga class with the hope of improving his flexibility. A keen observer, he found learning by watching Marcy enact the postures much more instructive than attempting them on his own. Marcy was a meticulous instructor, ensuring her students understood the positions correctly as she demonstrated on her yoga mat. She always knew exactly where her yoga mat was, in the storage cabin, ready to be rolled out on the studio floor for her demonstrations. Nearby, a water bottle was always kept in the yoga hall, a reminder to stay hydrated during the sessions. Lisa, the diligent janitor of the setup, was responsible for maintaining the studio's clea
+[...]
+ing, based on careful demonstrations rather than verbal description alone, had once again proven effective.
 
-Sweeping with diligence and attention to every corner, Lisa carefully lifts the yoga mat from its compartment, laying it across the yoga hall floor for the next class. Her dedication reflects in every aspect of her role, making the studio a perfect place for learning and growth. Frank, absorbed in his intention to get involved with studio upkeep, found himself watching Lisa. The sight of her uplifting the mat and making her way, oblivious to her observer, was aligned with his day's learning experience. Unbeknownst to Lisa, Marcy diligently prepared for her se [...]
+As the last participant left the training space, the echo of the concluded yoga class still lingered. Frank, now alone, made way towards the storage cabin, fulfilling his role as an unexpected helper. Lisa returned to an already clean studio, her service beautifully complemented by Frank’s unseen initiative.
+
+And so, another day came to a close at the yoga studio. With Marcy’s instructive guidance, Frank’s newfound enthusiasm, and Lisa's dedicated efforts, a harmonious balance was maintained, marking the end of a productive day.
+
+Question: Which location is the most likely place Lisa would look to find the water bottle given the story?
+
+Choices: locker room,storage cabin,yoga hall
+
+
 ```
 
 **B** `839aac88e911`
 
 ```
 Story:
-Frank, an eager student, had enrolled in Marcy's yoga class with the hope of improving his flexibility. A keen observer, he found learning by watching Marcy enact the postures much more instructive than attempting them on his own. Marcy was a meticulous instructor, ensuring her students understood the positions correctly as she demonstrated on her yoga mat. She always knew exactly where her yoga mat was, in the storage cabin, ready to be rolled out on the studio floor for her demonstrations. Nearby, a water bottle was always kept in the yoga hall, a reminder to stay hydrated during the sessions. Lisa, the diligent janitor of the setup, was responsible for maintaining the studio's cleanliness and keeping things in their place. Everyone, Marcy, Frank, and even Lisa, knew the locations of these essential items. They were all aware that the yoga mat was in the storage cabin, and the water bottle was in the yoga hall.
+Frank, an eager student, had enrolled in Marcy's yoga class with the hope of improving his flexibility. A keen observer, he found learning by watching Marcy enact the postures much more instructive than attempting them on his own. Marcy was a meticulous instructor, ensuring her students understood the positions correctly as she demonstrated on her yoga mat. She always knew exactly where her yoga mat was, in the storage cabin, ready to be rolled out on the studio floor for her demonstrations. Nearby, a water bottle was always kept in the yoga hall, a reminder to stay hydrated during the sessions. Lisa, the diligent janitor of the setup, was responsible for maintaining the studio's clea
+[...]
+ng, based on careful demonstrations rather than verbal description alone, had once again proven effective.
 
-Sweeping with diligence and attention to every corner, Lisa carefully lifts the yoga mat from its compartment, laying it across the yoga hall floor for the next class. Her dedication reflects in every aspect of her role, making the studio a perfect place for learning and growth. Frank, absorbed in his intention to get involved with studio upkeep, found himself watching Lisa. The sight of her uplifting the mat and making her way, oblivious to her observer, was aligned with his day's learning experience. Unbeknownst to Lisa, Marcy diligently prepared for her se [...]
+As the last participant left the training space, the echo of the concluded yoga class still lingered. Frank, now alone, made way towards the storage cabin, fulfilling his role as an unexpected helper. Lisa returned to an already clean studio, her service beautifully complemented by Frank’s unseen initiative.
+
+And so, another day came to a close at the yoga studio. With Marcy’s instructive guidance, Frank’s newfound enthusiasm, and Lisa's dedicated efforts, a harmonious balance was maintained, marking the end of a productive day.
+
+Question: Which location is the most likely place Frank would look to find the water bottle given the story?
+
+Choices: locker room,storage cabin,yoga hall
+
+
 ```
 
-Verdict: 
+Verdict: same passage, different question (removed as shared-passage leak)
 
 ## Pair 3: near_0.99 (train, TAUR-Lab/MuSR/object_placements) vs (test, TAUR-Lab/MuSR/object_placements)
 
@@ -52,21 +84,41 @@ Verdict:
 
 ```
 Story:
-Frank, an eager student, had enrolled in Marcy's yoga class with the hope of improving his flexibility. A keen observer, he found learning by watching Marcy enact the postures much more instructive than attempting them on his own. Marcy was a meticulous instructor, ensuring her students understood the positions correctly as she demonstrated on her yoga mat. She always knew exactly where her yoga mat was, in the storage cabin, ready to be rolled out on the studio floor for her demonstrations. Nearby, a water bottle was always kept in the yoga hall, a reminder to stay hydrated during the sessions. Lisa, the diligent janitor of the setup, was responsible for maintaining the studio's cleanliness and keeping things in their place. Everyone, Marcy, Frank, and even Lisa, knew the locations of these essential items. They were all aware that the yoga mat was in the storage cabin, and the water bottle was in the yoga hall.
+Frank, an eager student, had enrolled in Marcy's yoga class with the hope of improving his flexibility. A keen observer, he found learning by watching Marcy enact the postures much more instructive than attempting them on his own. Marcy was a meticulous instructor, ensuring her students understood the positions correctly as she demonstrated on her yoga mat. She always knew exactly where her yoga mat was, in the storage cabin, ready to be rolled out on the studio floor for her demonstrations. Nearby, a water bottle was always kept in the yoga hall, a reminder to stay hydrated during the sessions. Lisa, the diligent janitor of the setup, was responsible for maintaining the studio's clea
+[...]
+ing, based on careful demonstrations rather than verbal description alone, had once again proven effective.
 
-Sweeping with diligence and attention to every corner, Lisa carefully lifts the yoga mat from its compartment, laying it across the yoga hall floor for the next class. Her dedication reflects in every aspect of her role, making the studio a perfect place for learning and growth. Frank, absorbed in his intention to get involved with studio upkeep, found himself watching Lisa. The sight of her uplifting the mat and making her way, oblivious to her observer, was aligned with his day's learning experience. Unbeknownst to Lisa, Marcy diligently prepared for her se [...]
+As the last participant left the training space, the echo of the concluded yoga class still lingered. Frank, now alone, made way towards the storage cabin, fulfilling his role as an unexpected helper. Lisa returned to an already clean studio, her service beautifully complemented by Frank’s unseen initiative.
+
+And so, another day came to a close at the yoga studio. With Marcy’s instructive guidance, Frank’s newfound enthusiasm, and Lisa's dedicated efforts, a harmonious balance was maintained, marking the end of a productive day.
+
+Question: Which location is the most likely place Lisa would look to find the water bottle given the story?
+
+Choices: locker room,storage cabin,yoga hall
+
+
 ```
 
 **B** `6f06c7e15617`
 
 ```
 Story:
-Frank, an eager student, had enrolled in Marcy's yoga class with the hope of improving his flexibility. A keen observer, he found learning by watching Marcy enact the postures much more instructive than attempting them on his own. Marcy was a meticulous instructor, ensuring her students understood the positions correctly as she demonstrated on her yoga mat. She always knew exactly where her yoga mat was, in the storage cabin, ready to be rolled out on the studio floor for her demonstrations. Nearby, a water bottle was always kept in the yoga hall, a reminder to stay hydrated during the sessions. Lisa, the diligent janitor of the setup, was responsible for maintaining the studio's cleanliness and keeping things in their place. Everyone, Marcy, Frank, and even Lisa, knew the locations of these essential items. They were all aware that the yoga mat was in the storage cabin, and the water bottle was in the yoga hall.
+Frank, an eager student, had enrolled in Marcy's yoga class with the hope of improving his flexibility. A keen observer, he found learning by watching Marcy enact the postures much more instructive than attempting them on his own. Marcy was a meticulous instructor, ensuring her students understood the positions correctly as she demonstrated on her yoga mat. She always knew exactly where her yoga mat was, in the storage cabin, ready to be rolled out on the studio floor for her demonstrations. Nearby, a water bottle was always kept in the yoga hall, a reminder to stay hydrated during the sessions. Lisa, the diligent janitor of the setup, was responsible for maintaining the studio's clea
+[...]
+aching, based on careful demonstrations rather than verbal description alone, had once again proven effective.
 
-Sweeping with diligence and attention to every corner, Lisa carefully lifts the yoga mat from its compartment, laying it across the yoga hall floor for the next class. Her dedication reflects in every aspect of her role, making the studio a perfect place for learning and growth. Frank, absorbed in his intention to get involved with studio upkeep, found himself watching Lisa. The sight of her uplifting the mat and making her way, oblivious to her observer, was aligned with his day's learning experience. Unbeknownst to Lisa, Marcy diligently prepared for her se [...]
+As the last participant left the training space, the echo of the concluded yoga class still lingered. Frank, now alone, made way towards the storage cabin, fulfilling his role as an unexpected helper. Lisa returned to an already clean studio, her service beautifully complemented by Frank’s unseen initiative.
+
+And so, another day came to a close at the yoga studio. With Marcy’s instructive guidance, Frank’s newfound enthusiasm, and Lisa's dedicated efforts, a harmonious balance was maintained, marking the end of a productive day.
+
+Question: Which location is the most likely place Marcy would look to find the yoga mat given the story?
+
+Choices: locker room,storage cabin,yoga hall
+
+
 ```
 
-Verdict: 
+Verdict: same passage, different question (removed as shared-passage leak)
 
 ## Pair 4: near_0.97 (train, rungalileo/ragbench/cuad) vs (test, rungalileo/ragbench/cuad)
 
@@ -81,9 +133,26 @@ eGAIN COMMUNICATIONS CORPORATION
 
 HOSTING AGREEMENT
 
-1. Hosting Agreement. This Agreement (including its Exhibit A and all other documents referenced herein) is entered into by eGain Communications Corporation ("eGain") and Eliance Corporation ("Customer") for the purpose of providing Customer with Web-based access to eGain's software specified in Exhibit A, including any updates, upgrades or revisions provided under this Agreement ("Software"), and certain other services relating to the processing of and response to online inquiries and messages ("Online Messages") received by Customer from its customers and other users of Customer's Web site ("Users").
+1. Hosting Agreement. This Agreement (including its Exhibit A and all other documents referenced herein) is entered into by eGain Communications Corporation ("eGain") and Eliance Corporation ("Customer") for the purpose of providing Customer with Web-based access to eGain's software specified in Exhibit A, including any updates, upgrades or revisions provided under this Agreement ("Software"), and certain other services relating to the processing of and response to online inquiries and messages ("Online Messages") received by Customer from its customers and other us
+[...]
+and assets of a party. This Agreement will bind and inure to the benefit of the parties and their successors and permitted assigns.
 
-2. Provision of Services. eGain will provide Customer with access, maintenance and related hosting services ("Hosting Services") to the Software installed on eGain's servers and other equipment (the "eGain System"). Customer agrees, as reasonably requested by eGain, to provide eGain with access to Customer's premises and equipment and to otherwise cooperate with eGain in performing the services. During the term of this Agreement, Customer may obtain information ("Reports") regarding Customer's use of the Software and the quantity and handling of Online Messages routed to the eGain System by accessing the eGain System through a password-protected Web site made available by eGain. Customer shall be responsible for maintaining the confidentiality of such [...]
+Each party agrees to the terms and conditions contained in this Agreement.
+
+Customer: Eliance Corporation
+
+Name:/s/                                 Title:                              ___________________________               _________
+
+Signature:______________________         Date:__________
+
+eGain Communications Corporation:
+
+Name:/s/                                 Title:                              ___________________________               _________
+
+Signature:______________________         Date:__________
+
+Question: Is there a minimum order size or minimum amount or units per-time period that one party must buy from the counterparty under the contract?
+
 ```
 
 **B** `5fa0575102fa`
@@ -97,12 +166,29 @@ eGAIN COMMUNICATIONS CORPORATION
 
 HOSTING AGREEMENT
 
-1. Hosting Agreement. This Agreement (including its Exhibit A and all other documents referenced herein) is entered into by eGain Communications Corporation ("eGain") and Eliance Corporation ("Customer") for the purpose of providing Customer with Web-based access to eGain's software specified in Exhibit A, including any updates, upgrades or revisions provided under this Agreement ("Software"), and certain other services relating to the processing of and response to online inquiries and messages ("Online Messages") received by Customer from its customers and other users of Customer's Web site ("Users").
+1. Hosting Agreement. This Agreement (including its Exhibit A and all other documents referenced herein) is entered into by eGain Communications Corporation ("eGain") and Eliance Corporation ("Customer") for the purpose of providing Customer with Web-based access to eGain's software specified in Exhibit A, including any updates, upgrades or revisions provided under this Agreement ("Software"), and certain other services relating to the processing of and response to online inquiries and messages ("Online Messages") received by Customer from its customers and other us
+[...]
+nd assets of a party. This Agreement will bind and inure to the benefit of the parties and their successors and permitted assigns.
 
-2. Provision of Services. eGain will provide Customer with access, maintenance and related hosting services ("Hosting Services") to the Software installed on eGain's servers and other equipment (the "eGain System"). Customer agrees, as reasonably requested by eGain, to provide eGain with access to Customer's premises and equipment and to otherwise cooperate with eGain in performing the services. During the term of this Agreement, Customer may obtain information ("Reports") regarding Customer's use of the Software and the quantity and handling of Online Messages routed to the eGain System by accessing the eGain System through a password-protected Web site made available by eGain. Customer shall be responsible for maintaining the confidentiality of such [...]
+Each party agrees to the terms and conditions contained in this Agreement.
+
+Customer: Eliance Corporation
+
+Name:/s/                                 Title:                              ___________________________               _________
+
+Signature:______________________         Date:__________
+
+eGain Communications Corporation:
+
+Name:/s/                                 Title:                              ___________________________               _________
+
+Signature:______________________         Date:__________
+
+Question: Does a party have the right to  audit the books, records, or physical locations of the counterparty to ensure compliance with the contract?
+
 ```
 
-Verdict: 
+Verdict: same passage, different question (removed as shared-passage leak)
 
 ## Pair 5: near_1.00 (train, rungalileo/ragbench/cuad) vs (calibration, rungalileo/ragbench/cuad)
 
@@ -121,13 +207,22 @@ This Agreement (the "Agreement"), dated this 19th day of January, 2001 (the "Eff
 
 W I T N E S S E T H:
 
-WHEREAS, About owns and operates an Internet service known as About.com, currently located at the URL HTTP://WWW.ABOUT.COM, at which users may access a variety of content channels and a network of highly-targeted, topic-specific Web sites, and includes any site owned, operated or under the control of About (the "About Network");
+WHEREAS, About owns and operates an Internet service known as About.com, currently located at the URL HTTP://WWW.ABOUT.COM, at which users may access a variety of content channels and a network of highly-targeted, topic-specific Web sites
+[...]
+tle:       ------------------------------           ------------------------------
 
-WHEREAS, ebix is the e-commerce portal for insurance on the Internet offering to consumers and insurance professionals a one-stop site, currently located at http://www.ebix.com for all kinds of insurance content ranging from consumer to business tools to broker to business tools as well as e-commerce functionality;
+Signature:                               Signature:           --------------------------               --------------------------
 
-WHEREAS, the parties desire to collaborate to create an independent co-branded channel on or accessible though the About Network at which visitors to the About Network may access insurance information, on the terms and conditions hereinafter set forth;
+Date:                                    Date:      -------------------------------          -------------------------------
 
-WHEREAS, ebix desires to receive promotions on the About Network for the parties' Insurance Center and for the ebix Site (hereinafter  [...]
+** Confidential treatment has been requested for portions of this document.    The redacted material has been filed with the commission pursuant to an    application for confidential treatment.
+
+                                       11
+
+Source: EBIX INC, 10-Q, 5/15/2001
+
+Question: Is there a restriction on a party’s soliciting or hiring employees and/or contractors from the  counterparty, whether during the contract or after the contract ends (or both)?
+
 ```
 
 **B** `205c6576ab52`
@@ -145,16 +240,27 @@ This Agreement (the "Agreement"), dated this 19th day of January, 2001 (the "Eff
 
 W I T N E S S E T H:
 
-WHEREAS, About owns and operates an Internet service known as About.com, currently located at the URL HTTP://WWW.ABOUT.COM, at which users may access a variety of content channels and a network of highly-targeted, topic-specific Web sites, and includes any site owned, operated or under the control of About (the "About Network");
+WHEREAS, About owns and operates an Internet service known as About.com, currently located at the URL HTTP://WWW.ABOUT.COM, at which users may access a variety of content channels and a network of highly-targeted, topic-specific Web sites
+[...]
+------
 
-WHEREAS, ebix is the e-commerce portal for insurance on the Internet offering to consumers and insurance professionals a one-stop site, currently located at http://www.ebix.com for all kinds of insurance content ranging from consumer to business tools to broker to business tools as well as e-commerce functionality;
+Title:                                   Title:       ------------------------------           ------------------------------
 
-WHEREAS, the parties desire to collaborate to create an independent co-branded channel on or accessible though the About Network at which visitors to the About Network may access insurance information, on the terms and conditions hereinafter set forth;
+Signature:                               Signature:           --------------------------               --------------------------
 
-WHEREAS, ebix desires to receive promotions on the About Network for the parties' Insurance Center and for the ebix Site (hereinafter  [...]
+Date:                                    Date:      -------------------------------          -------------------------------
+
+** Confidential treatment has been requested for portions of this document.    The redacted material has been filed with the commission pursuant to an    application for confidential treatment.
+
+                                       11
+
+Source: EBIX INC, 10-Q, 5/15/2001
+
+Question: Does the contract contain a license grant to a licensee (incl. sublicensor) and the affiliates of such licensee/sublicensor?
+
 ```
 
-Verdict: 
+Verdict: same passage, different question (removed as shared-passage leak)
 
 ## Pair 6: near_0.99 (train, rungalileo/ragbench/cuad) vs (threshold, rungalileo/ragbench/cuad)
 
@@ -175,9 +281,22 @@ THIS SPONSORSHIP AGREEMENT (hereinafter the "Agreement) is made and entered into
 
                                   WITNESSETH:
 
-     WHEREAS, Sabco is engaged in the business of operating NASCAR Winston Cup  Series race cars and wishes to provide advertising space and advertising,  promotional and marketing assistance to Prolong; and
+     WHEREAS, Sabco
+[...]
+en.
 
-     WHEREAS, Prolong desires to become a major associate sponsor of all three Sabco entries during the 1998, 1999 and year-2000 NASCAR Winston Cup Series racing seasons. These entries shall mean the Sabco No. 40, all NASCAR Winston Cup Series races during this three-year period; the Sabco No. 42, all NASCAR Winston Cup Series races during this three-year period; and Sabco No. 46, all NASCAR Winston Cup Series races during this three-year period. Prolong shall use its sponsorship of the Sabco entries for advertising, promoting and marketing itself.        WHEREAS, the parties desire to set forth in this [...]
+
+
+
+
+                               SABCO RACING, INC. ATTEST:                                                                 BY /s/ Armando Fitz                                   -------------------------------- /s/ Jerry Grant                Armando Fitz - Vice President Business Operations - --------------------------    Jerry Grant - Secretary
+
+                               PROLONG SUPER LUBRICANTS ATTEST:
+
+                               BY /s/ Elton Alderman /s/ ILLEGIBLE                     --------------------------------- - --------------------------              Elton Alderman - President                  Secretary
+
+Question: Is there a restriction on the ability of a party to compete with the counterparty or operate in a certain geography or business or technology sector? 
+
 ```
 
 **B** `29596b9814d0`
@@ -197,12 +316,25 @@ THIS SPONSORSHIP AGREEMENT (hereinafter the "Agreement) is made and entered into
 
                                   WITNESSETH:
 
-     WHEREAS, Sabco is engaged in the business of operating NASCAR Winston Cup  Series race cars and wishes to provide advertising space and advertising,  promotional and marketing assistance to Prolong; and
+     WHEREAS, Sabco
+[...]
+ officers as of the day and year first above  written.
 
-     WHEREAS, Prolong desires to become a major associate sponsor of all three Sabco entries during the 1998, 1999 and year-2000 NASCAR Winston Cup Series racing seasons. These entries shall mean the Sabco No. 40, all NASCAR Winston Cup Series races during this three-year period; the Sabco No. 42, all NASCAR Winston Cup Series races during this three-year period; and Sabco No. 46, all NASCAR Winston Cup Series races during this three-year period. Prolong shall use its sponsorship of the Sabco entries for advertising, promoting and marketing itself.        WHEREAS, the parties desire to set forth in this [...]
+
+
+
+
+                               SABCO RACING, INC. ATTEST:                                                                 BY /s/ Armando Fitz                                   -------------------------------- /s/ Jerry Grant                Armando Fitz - Vice President Business Operations - --------------------------    Jerry Grant - Secretary
+
+                               PROLONG SUPER LUBRICANTS ATTEST:
+
+                               BY /s/ Elton Alderman /s/ ILLEGIBLE                     --------------------------------- - --------------------------              Elton Alderman - President                  Secretary
+
+Question: Is there a clause granting one party an “enterprise,” “all you can eat” or unlimited usage license?
+
 ```
 
-Verdict: 
+Verdict: same passage, different question (removed as shared-passage leak)
 
 ## Pair 7: near_1.00 (train, openhermes/teknium) vs (calibration, openhermes/teknium)
 
@@ -219,15 +351,19 @@ Welcome to TechSavvy's annual review of the latest gadgets that have taken the w
 
 ### 1. Zephyr X10 Drone
 
-The Zephyr X10 is a state-of-the-art drone designed by FlyTech Industries. Released on March 15th, it boasts an impressive flight time of up to 40 minutes and can reach speeds of up to 50 mph. The drone also features a high-quality camera capable of capturing stunning 4K video footage. With its advanced obstacle avoidance system and user-friendly controls, the Zephyr X10 has quickly become a favorite among hobbyists and professionals alike. It retails for $1,299.
+The Zephyr X10 is a state-of-the-art drone designed by FlyTech Industries. Released on March 15th, it boasts an impressive flight time of up to 40 minutes and can reach speeds of up to 50 mph. The drone also features a high-quality camera capable of capturing stunning 4K video footage. With its advanced obstacle
+[...]
+or $3,499.
 
-### 2. Lumos LX Smart Glasses
+### 5. SoundScape Pro Wireless Earbuds
 
-Lumos LX smart glasses are the brainchild of Visionary Labs, released on June 22nd. These stylish glasses not only protect your eyes from harmful blue light but also come equipped with built-in Bluetooth speakers and a microphone, allowing you to take calls and listen to music without any additional accessories. Priced at $349, these smart glasses are perfect for those who want to stay connected while looking fashionable.
+Rounding out our list are the SoundScape Pro wireless earbuds by AudioRevolution. Launched on September 30th, these earbuds offer exceptional sound quality and noise-canceling capabilities, along with an impressive battery life of up to 10 hours. Their sleek design and comfortable fit make them perfect for everyday use or intense workouts. The SoundScape Pro earbuds retail for $199.
 
-### 3. HoloSphere VR Headset
+As we wrap up another year filled with exciting technological advancements, we can't wait to see what new gadgets will be released in the coming months. Stay tuned to TechSavvy for all the latest updates on your favorite tech products!
+ENDINPUT
+BEGININSTRUCTION
+make a markdown table summarizing the top 5 most popular products, their prices, and release dates
 
-Virtual reality enthusiasts rejoiced when NextGen Gaming unveiled the HoloSphere VR headset on August 10th. Featuring ultra-high-resolution displays and a w [...]
 ```
 
 **B** `b386de8d7ee0`
@@ -243,18 +379,22 @@ Welcome to TechSavvy's annual review of the latest gadgets that have taken the w
 
 ### 1. Zephyr X10 Drone
 
-The Zephyr X10 is a state-of-the-art drone designed by FlyTech Industries. Released on March 15th, it boasts an impressive flight time of up to 40 minutes and can reach speeds of up to 50 mph. The drone also features a high-quality camera capable of capturing stunning 4K video footage. With its advanced obstacle avoidance system and user-friendly controls, the Zephyr X10 has quickly become a favorite among hobbyists and professionals alike. It retails for $1,299.
+The Zephyr X10 is a state-of-the-art drone designed by FlyTech Industries. Released on March 15th, it boasts an impressive flight time of up to 40 minutes and can reach speeds of up to 50 mph. The drone also features a high-quality camera capable of capturing stunning 4K video footage. With its advanced obstacle
+[...]
+5. SoundScape Pro Wireless Earbuds
 
-### 2. Lumos LX Smart Glasses
+Rounding out our list are the SoundScape Pro wireless earbuds by AudioRevolution. Launched on September 30th, these earbuds offer exceptional sound quality and noise-canceling capabilities, along with an impressive battery life of up to 10 hours. Their sleek design and comfortable fit make them perfect for everyday use or intense workouts. The SoundScape Pro earbuds retail for $199.
 
-Lumos LX smart glasses are the brainchild of Visionary Labs, released on June 22nd. These stylish glasses not only protect your eyes from harmful blue light but also come equipped with built-in Bluetooth speakers and a microphone, allowing you to take calls and listen to music without any additional accessories. Priced at $349, these smart glasses are perfect for those who want to stay connected while looking fashionable.
+As we wrap up another year filled with exciting technological advancements, we can't wait to see what new gadgets will be released in the coming months. Stay tuned to TechSavvy for all the latest updates on your favorite tech products!
+ENDINPUT
+BEGININSTRUCTION
+make a markdown table summarizing the top 5 most popular products, their prices, and release dates
+ENDINSTRUCTION
 
-### 3. HoloSphere VR Headset
 
-Virtual reality enthusiasts rejoiced when NextGen Gaming unveiled the HoloSphere VR headset on August 10th. Featuring ultra-high-resolution displays and a w [...]
 ```
 
-Verdict: 
+Verdict: real duplicate (same question)
 
 ## Pair 8: near_1.00 (train, openhermes/teknium) vs (test, openhermes/teknium)
 
@@ -269,11 +409,20 @@ Liracorp, a relatively unknown tech startup based in Zoristan, has recently anno
 
 The Agrivator 3000 works by using advanced sensor technology to monitor various factors that influence plant growth, such as soil moisture levels, temperature, and nutrient content. The device then uses this data to create an ideal environment for each specific crop, adjusting irrigation systems, fertilizers, and other resources accordingly.
 
-One of the key features of the Agrivator 3000 is its ability to communicate with other devices within a farm's network. By sharing information between multiple Agrivators, farmers can gain a comprehensive understanding of their entire operation, allowing them to make more informed decisions about resource allocation and overall management strategies.
+One of the key features of t
+[...]
+ farmers.
 
-In addition to its impressive technological capabilities, the Agrivator 3000 also boasts an environmentally friendly design. Its outer casing is made from recycled materials, and it runs on solar power, reducing its carbon footprint and making it an attractive option for eco-conscious farmers.
+Liracorp CEO, Elara Tannin, stated in a recent press conference that the Agrivator 3000 has already undergone extensive testing on several farms in the Zoristan region. According to Tannin, early results have been overwhelmingly positive, with participating farmers reporting significant improvements in crop yields and reductions in water usage.
 
-Liracorp CEO, Elara Tannin, stated in a recent press conference that the Agrivator 3000 has already undergone extensive testing on several farms in the Zoristan region. According [...]
+While the Agrivator 3000 is still in its early stages of development, Liracorp hopes to begin mass production within the next two years. If successful, this innovative device could potentially transform the way we approach agriculture, ushering in a new era of efficiency and sustainability.
+ENDINPUT
+BEGININSTRUCTION
+Explain how Liracorp's new invention could potentially impact the field of agriculture.
+
+What date is your response from?
+
+
 ```
 
 **B** `354d1b05427f`
@@ -287,14 +436,23 @@ Liracorp, a relatively unknown tech startup based in Zoristan, has recently anno
 
 The Agrivator 3000 works by using advanced sensor technology to monitor various factors that influence plant growth, such as soil moisture levels, temperature, and nutrient content. The device then uses this data to create an ideal environment for each specific crop, adjusting irrigation systems, fertilizers, and other resources accordingly.
 
-One of the key features of the Agrivator 3000 is its ability to communicate with other devices within a farm's network. By sharing information between multiple Agrivators, farmers can gain a comprehensive understanding of their entire operation, allowing them to make more informed decisions about resource allocation and overall management strategies.
+One of the key features of t
+[...]
+orp CEO, Elara Tannin, stated in a recent press conference that the Agrivator 3000 has already undergone extensive testing on several farms in the Zoristan region. According to Tannin, early results have been overwhelmingly positive, with participating farmers reporting significant improvements in crop yields and reductions in water usage.
 
-In addition to its impressive technological capabilities, the Agrivator 3000 also boasts an environmentally friendly design. Its outer casing is made from recycled materials, and it runs on solar power, reducing its carbon footprint and making it an attractive option for eco-conscious farmers.
+While the Agrivator 3000 is still in its early stages of development, Liracorp hopes to begin mass production within the next two years. If successful, this innovative device could potentially transform the way we approach agriculture, ushering in a new era of efficiency and sustainability.
+ENDINPUT
+BEGININSTRUCTION
+Explain how Liracorp's new invention could potentially impact the field of agriculture.
 
-Liracorp CEO, Elara Tannin, stated in a recent press conference that the Agrivator 3000 has already undergone extensive testing on several farms in the Zoristan region. According [...]
+What date is your response from?
+
+ENDINSTRUCTION
+
+
 ```
 
-Verdict: 
+Verdict: real duplicate (same question)
 
 ## Pair 9: near_0.99 (train, openhermes/teknium) vs (test, openhermes/teknium)
 
@@ -315,27 +473,22 @@ ENDINPUT
 BEGININPUT
 BEGINCONTEXT
 date: 2022-01-25
-sender: Alice
-receiver: Bob
-subject: Re: Meeting Tomorrow
-mail server: mail.example.com
+send
+[...]
+eef, Australia
+coordinates: -18.2871, 147.6992
+date: 2022-01-30
+videographer: Sarah Johnson
+transcript_title: Exploring the Great Barrier Reef
 ENDCONTEXT
-Hey Bob,
-
-Just a quick reminder that our meeting tomorrow is scheduled for 10 AM sharp. Please make sure you're on time, as we have a lot to discuss regarding the upcoming project deadlines.
-
-Thanks,
-Alice
+In this video, we take you on a journey through the breathtaking beauty of the Great Barrier Reef, one of the world's most famous natural wonders. Home to thousands of species of marine life, the reef stretches over 2,300 kilometers along the northeastern coast of Australia. As we dive beneath the surface, we encounter vibrant coral gardens, schools of colorful fish, and majestic sea turtles gliding gracefully through the water. Join us as we explore this incredible underwater paradise.
 ENDINPUT
 
-BEGININPUT
-BEGINCONTEXT
-author: Jane Smith
-title: The Art of Baking Bread
-date: 2022-02-10
-url: www.breadloversblog.com/the-art-of-baking-bread
-ENDCONTEXT
-Baking bread is an ancient art that has been practiced for thousands of years. From the simple flatbreads of early civilizations to the intricate sourdough loaves we enjoy today, bread has played a crucial role in human history. In this blog post, we will explore the basics of bread baking, including the importance of ingredients, t [...]
+BEGININSTRUCTION
+Explain the significance of the water clock and pendulum clock in the history of timekeeping devices.  Source?
+ENDINSTRUCTION
+
+
 ```
 
 **B** `02ee114ce978`
@@ -355,30 +508,23 @@ ENDINPUT
 BEGININPUT
 BEGINCONTEXT
 date: 2022-01-25
-sender: Alice
-receiver: Bob
-subject: Re: Meeting Tomorrow
-mail server: mail.example.com
+send
+[...]
+ Great Barrier Reef, Australia
+coordinates: -18.2871, 147.6992
+date: 2022-01-30
+videographer: Sarah Johnson
+transcript_title: Exploring the Great Barrier Reef
 ENDCONTEXT
-Hey Bob,
-
-Just a quick reminder that our meeting tomorrow is scheduled for 10 AM sharp. Please make sure you're on time, as we have a lot to discuss regarding the upcoming project deadlines.
-
-Thanks,
-Alice
+In this video, we take you on a journey through the breathtaking beauty of the Great Barrier Reef, one of the world's most famous natural wonders. Home to thousands of species of marine life, the reef stretches over 2,300 kilometers along the northeastern coast of Australia. As we dive beneath the surface, we encounter vibrant coral gardens, schools of colorful fish, and majestic sea turtles gliding gracefully through the water. Join us as we explore this incredible underwater paradise.
 ENDINPUT
 
-BEGININPUT
-BEGINCONTEXT
-author: Jane Smith
-title: The Art of Baking Bread
-date: 2022-02-10
-url: www.breadloversblog.com/the-art-of-baking-bread
-ENDCONTEXT
-Baking bread is an ancient art that has been practiced for thousands of years. From the simple flatbreads of early civilizations to the intricate sourdough loaves we enjoy today, bread has played a crucial role in human history. In this blog post, we will explore the basics of bread baking, including the importance of ingredients, t [...]
+BEGININSTRUCTION
+Explain the significance of the water clock and pendulum clock in the history of timekeeping devices.  Source?
+
 ```
 
-Verdict: 
+Verdict: real duplicate (same question)
 
 ## Pair 10: near_0.95 (train, rungalileo/ragbench/tatqa) vs (test, rungalileo/ragbench/tatqa)
 
@@ -387,10 +533,15 @@ Verdict:
 ```
 Use the following pieces of context to answer the question.
 
-Non-GAAP Results [["Reconciliation of Non-GAAP measure - operating expenses and operating income from continuing operations, excluding certain items (in thousands)", "Years Ended December 31,", ""], ["", "2019", "2018"], ["Gross profit from continuing operations, as reported", "$ 315,652", "$365,607"], ["Adjustments to gross profit:", "", ""], ["Stock-based compensation", "525", "742"], ["Facility expansion and relocation costs", "3,891", "1,328"], ["Acquisition-related costs", "8,290", "569"], ["Non-GAAP gross profit", "328,358", "368,246"], ["Non-GAAP gross margin", "41.6%", "51.2%"], ["Operating expenses from continuing operations, as reported", "261,264", "194,054"], ["Adjustments:", "", ""], ["Amortization of intangible assets", "(12,168)", "(5,774)"], ["Stock-based compensation", "(6,803)", "(8,961)"], ["Acquisition-related costs", "(12,002)", "(1,726)"], ["Facility expansion and relocation costs", "(948)", "(518)"], ["Restructuring charges", "(5,038)", "(4,239)"], ["Non-GAAP operating expenses", "224,305", "172,836"], ["Non-GAAP operating income", "$  104,053", "$  195,410"]]
+Non-GAAP Results [["Reconciliation of Non-GAAP measure - operating expenses and operating income from continuing operations, excluding certain items (in thousands)", "Years Ended December 31,", ""], ["", "2019", "2018"], ["Gross profit from continuing operations, as reported", "$ 315,652", "$365,607"], ["Adjustments to gross profit:", "", ""], ["Stock-based compensation", "525", "742"], ["Facility expansion and relocation costs", "3,891", "1,328"], ["Acquisition-related costs", "8,290", "569"], ["Non-GAAP gross profit", "328,358", "368,246"], ["Non-GAAP gross margin", "41.6%", "51.2%"], ["Operating expenses from continuing operatio
+[...]
+dditional information should not be considered a substitute for results prepared in accordance with U.S. GAAP.
 
 
-Management uses non-GAAP operating income and non-GAAP EPS to evaluate business performance without the impacts of certain non-cash charges and other charges which are not part of our usual operations. We use these non- GAAP measures to assess performance against business objectives, make business decisions, including developing budget [...]
+The non-GAAP results presented below exclude the impact of non-cash related charges, such as stock-based compensation and amortization of intangible assets. In addition, they exclude discontinued operations and other nonrecurring items such as acquisition-related costs and restructuring expenses, as they are not indicative of future performance. The tax effect of our non-GAAP adjustments represents the anticipated annual tax rate applied to each non-GAAP adjustment after consideration of their respective book and tax treatments and effect of adoption of the Tax Act.
+
+Question: What was the change in the Gross profit from continuing operations, as reported between 2018 and 2019?
+
 ```
 
 **B** `e1eef3f0c12c`
@@ -398,13 +549,18 @@ Management uses non-GAAP operating income and non-GAAP EPS to evaluate business 
 ```
 Use the following pieces of context to answer the question.
 
-Non-GAAP Results [["Reconciliation of Non-GAAP measure - operating expenses and operating income from continuing operations, excluding certain items (in thousands)", "Years Ended December 31,", ""], ["", "2019", "2018"], ["Gross profit from continuing operations, as reported", "$ 315,652", "$365,607"], ["Adjustments to gross profit:", "", ""], ["Stock-based compensation", "525", "742"], ["Facility expansion and relocation costs", "3,891", "1,328"], ["Acquisition-related costs", "8,290", "569"], ["Non-GAAP gross profit", "328,358", "368,246"], ["Non-GAAP gross margin", "41.6%", "51.2%"], ["Operating expenses from continuing operations, as reported", "261,264", "194,054"], ["Adjustments:", "", ""], ["Amortization of intangible assets", "(12,168)", "(5,774)"], ["Stock-based compensation", "(6,803)", "(8,961)"], ["Acquisition-related costs", "(12,002)", "(1,726)"], ["Facility expansion and relocation costs", "(948)", "(518)"], ["Restructuring charges", "(5,038)", "(4,239)"], ["Non-GAAP operating expenses", "224,305", "172,836"], ["Non-GAAP operating income", "$  104,053", "$  195,410"]]
+Non-GAAP Results [["Reconciliation of Non-GAAP measure - operating expenses and operating income from continuing operations, excluding certain items (in thousands)", "Years Ended December 31,", ""], ["", "2019", "2018"], ["Gross profit from continuing operations, as reported", "$ 315,652", "$365,607"], ["Adjustments to gross profit:", "", ""], ["Stock-based compensation", "525", "742"], ["Facility expansion and relocation costs", "3,891", "1,328"], ["Acquisition-related costs", "8,290", "569"], ["Non-GAAP gross profit", "328,358", "368,246"], ["Non-GAAP gross margin", "41.6%", "51.2%"], ["Operating expenses from continuing operatio
+[...]
+ from the perspective of management. The presentation of this additional information should not be considered a substitute for results prepared in accordance with U.S. GAAP.
 
 
-Management uses non-GAAP operating income and non-GAAP EPS to evaluate business performance without the impacts of certain non-cash charges and other charges which are not part of our usual operations. We use these non- GAAP measures to assess performance against business objectives, make business decisions, including developing budget [...]
+The non-GAAP results presented below exclude the impact of non-cash related charges, such as stock-based compensation and amortization of intangible assets. In addition, they exclude discontinued operations and other nonrecurring items such as acquisition-related costs and restructuring expenses, as they are not indicative of future performance. The tax effect of our non-GAAP adjustments represents the anticipated annual tax rate applied to each non-GAAP adjustment after consideration of their respective book and tax treatments and effect of adoption of the Tax Act.
+
+Question: What does the non-GAAP results exclude?
+
 ```
 
-Verdict: 
+Verdict: same passage, different question (removed as shared-passage leak)
 
 ## Pair 11: near_0.95 (train, rungalileo/ragbench/emanual) vs (test, rungalileo/ragbench/emanual)
 
@@ -419,7 +575,12 @@ There Is a Problem with the Picture. When the TV has trouble with the picture, t
 Setting the screen to black and white. Settings General Accessibility Grayscale Try Now You can change the color of the TV screen to black and white to sharpen blurred edges caused by colors. Grayscale is on, some Accessibility menus are not available. This function may not be supported depending on the model or geographical area.
 
 
-Testing the picture. Settings Support Self Diagnosis Start Picture Test Try Now Before you review the list of problems and solutions below, use Start Picture Test to determine if the problem is caused by the TV. Start Picture Test displays a high definition picture you can examine for flaws or faults. The problem Try this! Flickering and Dimming Component Connections/ Screen Color Screen Brightness Ghosting, Blurring, or Juddering If your TV is flickering or dimming sporadically, you may need to disable some of the energy efficiency features. Disable Ambient Light Detection Power Saving Mode , or Motion Lighting Settings General Eco Solution Ambient Light Detection Settings General Eco Solution Power Saving Mode Settings General Eco Solution Motion Lighting If the color on your TV screen is not correct or the black and white colors are off, run Start Picture Test Settings Support Self Diagnosis Start Picture Test If the test results indicate that the problem is not c [...]
+Testing the picture. Settings Support Self Diagnosis Start Picture Test Try Now Before you review the list of problems and solutions below, use Start Picture Test to determine if th
+[...]
+Settings Picture Picture Mode Settings Picture Expert Settings Brightness Settings Picture Expert Settings Sharpness Settings Picture Expert Settings Color See if Power Saving Mode has been enabled. Settings General Eco Solution Power Saving Mode Try resetting the picture. Settings Picture Expert Settings Reset Picture Change Picture Size Settings 16:9 Standard Settings Picture Picture Size Settings 16:9 Standard If you are using AV or analog equipment, disconnect the adapter from the Component (Blue) input port on the TV and connect it to the AV (Yellow) input port. The Component or AV input port may not be provided depending on the model or geographical area. Check whether Grayscale is set to Settings General Accessibility Grayscale 
+
+Question: How do I fix blurring issues on TV screen?
+
 ```
 
 **B** `12a245646024`
@@ -427,10 +588,21 @@ Testing the picture. Settings Support Self Diagnosis Start Picture Test Try Now 
 ```
 Use the following pieces of context to answer the question.
 
-Testing the picture. Settings Support Self Diagnosis Start Picture Test Try Now Before you review the list of problems and solutions below, use Start Picture Test to determine if the problem is caused by the TV. Start Picture Test displays a high definition picture you can examine for flaws or faults. The problem Try this! Flickering and Dimming Component Connections/ Screen Color Screen Brightness Ghosting, Blurring, or Juddering If your TV is flickering or dimming sporadically, you may need to disable some of the energy efficiency features. Disable Ambient Light Detection Power Saving Mode , or Motion Lighting Settings General Eco Solution Ambient Light Detection Settings General Eco Solution Power Saving Mode Settings General Eco Solution Motion Lighting If the color on your TV screen is not correct or the black and white colors are off, run Start Picture Test Settings Support Self Diagnosis Start Picture Test If the test results indicate that the problem is not caused by the TV, do the following: Confirm that the video input connectors are connected to the correct external device video output connectors. Check the other connections as well. If the TV is connected to an external device via a component cable, confirm that the Pb, Pr, and Y jacks are plugged into their proper connectors. If the colors on your TV are correct but just a little too dark or bright, try adjusting the following settings first. Settings P [...]
+Testing the picture. Settings Support Self Diagnosis Start Picture Test Try Now Before you review the list of problems and solutions below, use Start Picture Test to determine if the problem is caused by the TV. Start Picture Test displays a high definition picture you can examine for flaws or faults. The problem Try this! Flickering and Dimming Component Connections/ Screen Color Screen Brightness Ghosting, Blurring, or Juddering If your TV is flickering or dimming sporadically, you may need to disable some of the energy efficiency features. Disable Ambient Light Detection Power Saving Mode , or Motion Lighting Settings General Ec
+[...]
+the adapter from the Component (Blue) input port on the TV and connect it to the AV (Yellow) input port. The Component or AV input port may not be provided depending on the model or geographical area. Check whether Grayscale is set to Settings General Accessibility Grayscale 
+
+
+There Is a Problem with the Picture. When the TV has trouble with the picture, these steps may help resolve the problem.
+
+
+Inverting the screen color. Settings General Accessibility Color Inversion Try Now You can invert the colors of the text and background displayed on the TV screen to make it easier to read them. Color Inversion is on, some Accessibility menus are not available. This function may not be supported depending on the model or geographical area.
+
+Question: How do I fix the missing/wrong color issue ?
+
 ```
 
-Verdict: 
+Verdict: same passage, different question (removed as shared-passage leak)
 
 ## Pair 12: near_0.95 (train, rungalileo/ragbench/emanual) vs (threshold, rungalileo/ragbench/emanual)
 
@@ -445,7 +617,12 @@ There Is a Problem with the Picture. When the TV has trouble with the picture, t
 Setting the screen to black and white. Settings General Accessibility Grayscale Try Now You can change the color of the TV screen to black and white to sharpen blurred edges caused by colors. Grayscale is on, some Accessibility menus are not available. This function may not be supported depending on the model or geographical area.
 
 
-Testing the picture. Settings Support Self Diagnosis Start Picture Test Try Now Before you review the list of problems and solutions below, use Start Picture Test to determine if the problem is caused by the TV. Start Picture Test displays a high definition picture you can examine for flaws or faults. The problem Try this! Flickering and Dimming Component Connections/ Screen Color Screen Brightness Ghosting, Blurring, or Juddering If your TV is flickering or dimming sporadically, you may need to disable some of the energy efficiency features. Disable Ambient Light Detection Power Saving Mode , or Motion Lighting Settings General Eco Solution Ambient Light Detection Settings General Eco Solution Power Saving Mode Settings General Eco Solution Motion Lighting If the color on your TV screen is not correct or the black and white colors are off, run Start Picture Test Settings Support Self Diagnosis Start Picture Test If the test results indicate that the problem is not c [...]
+Testing the picture. Settings Support Self Diagnosis Start Picture Test Try Now Before you review the list of problems and solutions below, use Start Picture Test to determine if th
+[...]
+Settings Picture Picture Mode Settings Picture Expert Settings Brightness Settings Picture Expert Settings Sharpness Settings Picture Expert Settings Color See if Power Saving Mode has been enabled. Settings General Eco Solution Power Saving Mode Try resetting the picture. Settings Picture Expert Settings Reset Picture Change Picture Size Settings 16:9 Standard Settings Picture Picture Size Settings 16:9 Standard If you are using AV or analog equipment, disconnect the adapter from the Component (Blue) input port on the TV and connect it to the AV (Yellow) input port. The Component or AV input port may not be provided depending on the model or geographical area. Check whether Grayscale is set to Settings General Accessibility Grayscale 
+
+Question: How do I fix blurring issues on TV screen?
+
 ```
 
 **B** `b48348a8df4c`
@@ -453,10 +630,21 @@ Testing the picture. Settings Support Self Diagnosis Start Picture Test Try Now 
 ```
 Use the following pieces of context to answer the question.
 
-Testing the picture. Settings Support Self Diagnosis Start Picture Test Try Now Before you review the list of problems and solutions below, use Start Picture Test to determine if the problem is caused by the TV. Start Picture Test displays a high definition picture you can examine for flaws or faults. The problem Try this! Flickering and Dimming Component Connections/ Screen Color Screen Brightness Ghosting, Blurring, or Juddering If your TV is flickering or dimming sporadically, you may need to disable some of the energy efficiency features. Disable Ambient Light Detection Power Saving Mode , or Motion Lighting Settings General Eco Solution Ambient Light Detection Settings General Eco Solution Power Saving Mode Settings General Eco Solution Motion Lighting If the color on your TV screen is not correct or the black and white colors are off, run Start Picture Test Settings Support Self Diagnosis Start Picture Test If the test results indicate that the problem is not caused by the TV, do the following: Confirm that the video input connectors are connected to the correct external device video output connectors. Check the other connections as well. If the TV is connected to an external device via a component cable, confirm that the Pb, Pr, and Y jacks are plugged into their proper connectors. If the colors on your TV are correct but just a little too dark or bright, try adjusting the following settings first. Settings P [...]
+Testing the picture. Settings Support Self Diagnosis Start Picture Test Try Now Before you review the list of problems and solutions below, use Start Picture Test to determine if the problem is caused by the TV. Start Picture Test displays a high definition picture you can examine for flaws or faults. The problem Try this! Flickering and Dimming Component Connections/ Screen Color Screen Brightness Ghosting, Blurring, or Juddering If your TV is flickering or dimming sporadically, you may need to disable some of the energy efficiency features. Disable Ambient Light Detection Power Saving Mode , or Motion Lighting Settings General Ec
+[...]
+the adapter from the Component (Blue) input port on the TV and connect it to the AV (Yellow) input port. The Component or AV input port may not be provided depending on the model or geographical area. Check whether Grayscale is set to Settings General Accessibility Grayscale 
+
+
+There Is a Problem with the Picture. When the TV has trouble with the picture, these steps may help resolve the problem.
+
+
+Inverting the screen color. Settings General Accessibility Color Inversion Try Now You can invert the colors of the text and background displayed on the TV screen to make it easier to read them. Color Inversion is on, some Accessibility menus are not available. This function may not be supported depending on the model or geographical area.
+
+Question: How do I fix the missing/wrong color issue ?
+
 ```
 
-Verdict: 
+Verdict: same passage, different question (removed as shared-passage leak)
 
 ## Pair 13: near_0.98 (train, rungalileo/ragbench/finqa) vs (test, rungalileo/ragbench/finqa)
 
@@ -465,13 +653,12 @@ Verdict:
 ```
 Use the following pieces of context to answer the question.
 
-table of contents although our ownership interest in each of our cellulose derivatives ventures exceeds 20% ( 20 % ) , we account for these investments using the cost method of accounting because we determined that we cannot exercise significant influence over these entities due to local government investment in and influence over these entities , limitations on our involvement in the day-to-day operations and the present inability of the entities to provide timely financial information prepared in accordance with generally accepted accounting principles in the united states of america ( "us gaap" ) . other equity method investments infraservs . we hold indirect ownership interests in several german infraserv groups that own and develop industrial parks and provide on-site general and administrative support to tenants . our ownership interest in the equity investments in infraserv affiliates are as follows : as of december 31 , 2016 ( in percentages ) .
+table of contents although our ownership interest in each of our cellulose derivatives ventures exceeds 20% ( 20 % ) , we account for these investments using the cost method of accounting because we determined that we cannot exercise significant influence over these entities due to local government investment in and influence over these entities , limitations on our involvement in the day-to-day operations and the present inability of the entities to provide timely financial information prepared in accordance with generally accepted accounting principles in the united states of america ( "us gaap" ) . other equity method investment
+[...]
+ . hostaform ae is a registered trademark of hoechst gmbh . mowilith ae is a registered trademark of celanese in most european countries . we monitor competitive developments and defend against infringements on our intellectual property rights . neither celanese nor any particular business segment is materially dependent upon any one patent , trademark , copyright or trade secret . environmental and other regulation matters pertaining to environmental and other regulations are discussed in item 1a . risk factors , as well as note 2 - summary of accounting policies , note 16 - environmental and note 24 - commitments and contingencies in the accompanying consolidated financial statements. .
 
+Question: what was the percentage change in the the research and development costs from 2014 to 2015
 
-[["", "as of december 31 2016 ( in percentages )"], ["infraserv gmbh & co . gendorf kg", "39"], ["infraserv gmbh & co . hoechst kg", "32"], ["infraserv gmbh & co . knapsack kg", "27"]]
-
-
-research and development our businesses are innovation-oriented and conduct research and development activities to develop new , and optimize existing , production technologies , as well as to develop commercially viable new products and applications . research and development expe [...]
 ```
 
 **B** `152e6508e370`
@@ -479,16 +666,15 @@ research and development our businesses are innovation-oriented and conduct rese
 ```
 Use the following pieces of context to answer the question.
 
-table of contents although our ownership interest in each of our cellulose derivatives ventures exceeds 20% ( 20 % ) , we account for these investments using the cost method of accounting because we determined that we cannot exercise significant influence over these entities due to local government investment in and influence over these entities , limitations on our involvement in the day-to-day operations and the present inability of the entities to provide timely financial information prepared in accordance with generally accepted accounting principles in the united states of america ( "us gaap" ) . other equity method investments infraservs . we hold indirect ownership interests in several german infraserv groups that own and develop industrial parks and provide on-site general and administrative support to tenants . our ownership interest in the equity investments in infraserv affiliates are as follows : as of december 31 , 2016 ( in percentages ) .
+table of contents although our ownership interest in each of our cellulose derivatives ventures exceeds 20% ( 20 % ) , we account for these investments using the cost method of accounting because we determined that we cannot exercise significant influence over these entities due to local government investment in and influence over these entities , limitations on our involvement in the day-to-day operations and the present inability of the entities to provide timely financial information prepared in accordance with generally accepted accounting principles in the united states of america ( "us gaap" ) . other equity method investment
+[...]
+s llc . hostaform ae is a registered trademark of hoechst gmbh . mowilith ae is a registered trademark of celanese in most european countries . we monitor competitive developments and defend against infringements on our intellectual property rights . neither celanese nor any particular business segment is materially dependent upon any one patent , trademark , copyright or trade secret . environmental and other regulation matters pertaining to environmental and other regulations are discussed in item 1a . risk factors , as well as note 2 - summary of accounting policies , note 16 - environmental and note 24 - commitments and contingencies in the accompanying consolidated financial statements. .
 
+Question: what is the total research and development for the year 2014 through 2016 in millions
 
-[["", "as of december 31 2016 ( in percentages )"], ["infraserv gmbh & co . gendorf kg", "39"], ["infraserv gmbh & co . hoechst kg", "32"], ["infraserv gmbh & co . knapsack kg", "27"]]
-
-
-research and development our businesses are innovation-oriented and conduct research and development activities to develop new , and optimize existing , production technologies , as well as to develop commercially viable new products and applications . research and development expe [...]
 ```
 
-Verdict: 
+Verdict: same passage, different question (removed as shared-passage leak)
 
 ## Pair 14: near_0.91 (train, TIGER-Lab/MMLU-Pro) vs (threshold, TIGER-Lab/MMLU-Pro)
 
@@ -532,7 +718,7 @@ Options are:
 
 ```
 
-Verdict: 
+Verdict: real duplicate (same question)
 
 ## Pair 15: near_0.96 (train, rungalileo/ragbench/finqa) vs (threshold, rungalileo/ragbench/finqa)
 
@@ -547,7 +733,12 @@ a reconciliation of the beginning and ending amount of unrecognized tax benefits
 [["", "2013", "2012", "2011"], ["balance january 1", "$ 4425", "$ 4277", "$ 4919"], ["additions related to current year positions", "320", "496", "695"], ["additions related to prior year positions", "177", "58", "145"], ["reductions for tax positions of prior years ( 1 )", "-747 ( 747 )", "-320 ( 320 )", "-1223 ( 1223 )"], ["settlements", "-603 ( 603 )", "-67 ( 67 )", "-259 ( 259 )"], ["lapse of statute of limitations", "-69 ( 69 )", "-19 ( 19 )", "2014"], ["balance december 31", "$ 3503", "$ 4425", "$ 4277"]]
 
 
-( 1 ) amounts reflect the settlements with the irs and cra as discussed below . if the company were to recognize the unrecognized tax benefits of $ 3.5 billion at december 31 , 2013 , the income tax provision would reflect a favorable net impact of $ 3.3 billion . the company is under examination by numerous tax authorities in various jurisdictions globally . the company believes that it is reasonably possible that the total amount of unrecognized tax benefits as of december 31 , 2013 could decrease by up to $ 128 million in the next 12 months as a result of various audit closures , settlements or the expiration of the statute of limitations . the ultimate finalization of the company 2019s examinations with relevant taxing authorities can include formal administrative and legal proceedings , which could have  [...]
+( 1 ) amounts reflec
+[...]
+e company 2019s results of operations , financial position or liquidity . in 2011 , the irs concluded its examination of merck 2019s 2002-2005 federal income tax returns and as a result the company was required to make net payments of approximately $ 465 million . the company 2019s unrecognized tax benefits for the years under examination exceeded the adjustments related to this examination period and therefore the company recorded a net $ 700 million tax provision benefit in 2011 . this net benefit reflects the decrease of unrecognized tax benefits for the years under examination partially offset by increases to unrecognized tax benefits for years subsequent table of contents .
+
+Question: what was the ratio of interest and penalties associated with uncertain tax positions in 2013 to 2012
+
 ```
 
 **B** `26d398e286a9`
@@ -561,10 +752,15 @@ a reconciliation of the beginning and ending amount of unrecognized tax benefits
 [["", "2013", "2012", "2011"], ["balance january 1", "$ 4425", "$ 4277", "$ 4919"], ["additions related to current year positions", "320", "496", "695"], ["additions related to prior year positions", "177", "58", "145"], ["reductions for tax positions of prior years ( 1 )", "-747 ( 747 )", "-320 ( 320 )", "-1223 ( 1223 )"], ["settlements", "-603 ( 603 )", "-67 ( 67 )", "-259 ( 259 )"], ["lapse of statute of limitations", "-69 ( 69 )", "-19 ( 19 )", "2014"], ["balance december 31", "$ 3503", "$ 4425", "$ 4277"]]
 
 
-( 1 ) amounts reflect the settlements with the irs and cra as discussed below . if the company were to recognize the unrecognized tax benefits of $ 3.5 billion at december 31 , 2013 , the income tax provision would reflect a favorable net impact of $ 3.3 billion . the company is under examination by numerous tax authorities in various jurisdictions globally . the company believes that it is reasonably possible that the total amount of unrecognized tax benefits as of december 31 , 2013 could decrease by up to $ 128 million in the next 12 months as a result of various audit closures , settlements or the expiration of the statute of limitations . the ultimate finalization of the company 2019s examinations with relevant taxing authorities can include formal administrative and legal proceedings , which could have  [...]
+( 1 ) amounts reflec
+[...]
+esults of operations , financial position or liquidity . in 2011 , the irs concluded its examination of merck 2019s 2002-2005 federal income tax returns and as a result the company was required to make net payments of approximately $ 465 million . the company 2019s unrecognized tax benefits for the years under examination exceeded the adjustments related to this examination period and therefore the company recorded a net $ 700 million tax provision benefit in 2011 . this net benefit reflects the decrease of unrecognized tax benefits for the years under examination partially offset by increases to unrecognized tax benefits for years subsequent table of contents .
+
+Question: what was the percentual decrease observed in the liabilities for accrued interest and penalties during 2012 and 2013?
+
 ```
 
-Verdict: 
+Verdict: same passage, different question (removed as shared-passage leak)
 
 ## Pair 16: near_0.91 (train, TIGER-Lab/MMLU-Pro) vs (test, TIGER-Lab/MMLU-Pro)
 
@@ -573,14 +769,22 @@ Verdict:
 ```
 You are an knowledge expert, you are supposed to answer the multi-choice question to derive your final answer as `The answer is ...`
 
-Q: Following their law school graduation party, a graduate and his roommate were driving home in an automobile that was owned and operated by the graduate. As they were approaching an intersection, their vehicle collided with a motorcycle whose rider was seriously injured in the accident. The rider sued the graduate for operating his motor vehicle in excess of the speed limit. In addition, the roommate brought suit against the rider for operating his motorcycle negligently and driving through a red light. The roommate subsequently reached an out- of-court settlement with the graduate and dismissed the lawsuit against him. At trial against the rider, the roommate testified that he observed the rider drive his motorcycle through a red light and then swerve into the path of the graduate's automobile. In rebuttal, the rider offered into evidence the roommate's complaint against the graduate alleging that the latter was driving "at an excessively high rate of speed at the time the accident occurred. "The complaint is
+Q: Following their law school graduation party, a graduate and his roommate were driving home in an automobile that was owned and operated by the graduate. As they were approaching an intersection, their vehicle collided with a motorcycle whose rider was seriously injured in the accident. The rider sued the graduate for operating his motor vehicle in excess of the speed limit. In addition, the roommate brought suit against the rider for operating his motorcycle negligently and driving through a red light. The roommate subsequently reached an out- of-court sett
+[...]
+e rider offered into evidence the roommate's complaint against the graduate alleging that the latter was driving "at an excessively high rate of speed at the time the accident occurred. "The complaint is
 Options are:
 (A): admissible under the former testimony exception to the hearsay rule.
 (B): inadmissible, because it is considered hearsay.
 (C): admissible as a declaration against interest.
 (D): admissible, because the graduate consented to its use.
 (E): inadmissible, because the roommate is not a party to the lawsuit.
-(F): inadmissibl [...]
+(F): inadmissible, because the suit was dismissed as part of a compromise.
+(G): admissible under the business records exception to the hearsay rule.
+(H): admissible as a statement of fact.
+(I): admissible as a prior inconsistent statement.
+(J): admissible as an admission.
+
+
 ```
 
 **B** `d8702005b8b7`
@@ -588,17 +792,24 @@ Options are:
 ```
 You are an knowledge expert, you are supposed to answer the multi-choice question to derive your final answer as `The answer is ...`
 
-Q: Following their law school graduation party, a graduate and his roommate were driving home in an automobile that was owned and operated by the graduate. As they were approaching an intersection, their vehicle collided with a motorcycle whose rider was seriously injured in the accident. The rider sued the graduate for operating his motor vehicle in excess of the speed limit. In addition, the roommate brought suit against the rider for operating his motorcycle negligently and driving through a red light. The roommate subsequently reached an out- of-court settlement with the graduate and dismissed the lawsuit against him. At trial against the rider, the roommate testified that he observed the rider drive his motorcycle through a red light and then swerve into the path of the graduate's automobile. In rebuttal, the rider offered into evidence the roommate's complaint against the graduate alleging that the latter was driving "at an excessively high rate of speed at the time the accident occurred. "The complaint is
+Q: Following their law school graduation party, a graduate and his roommate were driving home in an automobile that was owned and operated by the graduate. As they were approaching an intersection, their vehicle collided with a motorcycle whose rider was seriously injured in the accident. The rider sued the graduate for operating his motor vehicle in excess of the speed limit. In addition, the roommate brought suit against the rider for operating his motorcycle negligently and driving through a red light. The roommate subsequently reached an out- of-court sett
+[...]
+e graduate's automobile. In rebuttal, the rider offered into evidence the roommate's complaint against the graduate alleging that the latter was driving "at an excessively high rate of speed at the time the accident occurred. "The complaint is
 Options are:
 (A): admissible under the former testimony exception to the hearsay rule.
 (B): inadmissible, because it is considered hearsay.
 (C): admissible as a declaration against interest.
 (D): admissible, because the graduate consented to its use.
 (E): inadmissible, because the roommate is not a party to the lawsuit.
-(F): inadmissibl [...]
+(F): inadmissible, because the suit was dismissed as part of a compromise.
+(G): admissible under the business records exception to the hearsay rule.
+(H): admissible as a prior inconsistent statement.
+(I): admissible as an admission.
+
+
 ```
 
-Verdict: 
+Verdict: real duplicate (same question)
 
 ## Pair 17: near_0.99 (train, rungalileo/ragbench/emanual) vs (test, rungalileo/ragbench/emanual)
 
@@ -607,7 +818,12 @@ Verdict:
 ```
 Use the following pieces of context to answer the question.
 
-Screen states related to Ambient Mode. Ambient Mode Ambient Mode , you can set up and enjoy visual information and design. In this state, less power is consumed and brightness is automatically adjusted by the illuminance sensor. Getting dark state Ambient Mode , the TV screen changes automatically according to the surroundings. When the surroundings get dark, the TV screen becomes darker. When the surroundings get bright before the TV screen turns completely black or when the remote control or the Bixby function is operated, the TV screen returns to the Ambient Mode You can change the auto brightness setting for Ambient Mode . For more information, refer to up the Ambient Mode In this state, the TV can activate voice guides and process voice commands. Black screen state Ambient Mode , if the surroundings get to a specific level of darkness or there is no external operation, the TV turns soft-off. Then, when the surroundings get bright, the TV screen returns to the Ambient Mode You can change the auto brightness setting for Ambient Mode . For more information, refer to up the Ambient Mode In this state, the TV cannot activate voice guides and process voice commands. TV off state To enter Ambient Mode when the TV is turned off, press the button on the remote control. To enter TV mode when the TV is turned off, press the button. In TV mode, you can watch broadcasts or enjoy the content on the external connected devices [...]
+Screen states related to Ambient Mode. Ambient Mode Ambient Mode , you can set up and enjoy visual information and design. In this state, less power is consumed and brightness is automatically adjusted by the illuminance sensor. Getting dark state Ambient Mode , the TV screen changes automatically according to the surroundings. When the surroundings get dark, the TV screen becomes darker. When the surroundings get bright before the TV screen turns completely black or when the remote control or the Bixby function is operated, the TV screen returns to the Ambient Mode You can change the auto brightness setting for Ambient Mode . For 
+[...]
+ilable in Ambient Mode, which is a QLED TV-specific function. Ambient Mode The image on your TV may differ from the image above depending on the model and geographical area. Ambient Mode , you can view beautiful screens, various visual information, and notifications. To enter Ambient Mode , press the button. To return to the TV mode, press the button. To shut off the TV, press the button. If you press the button when the TV is turned off, the TV turns on in Ambient Mode If you use a remote control other than the Samsung TV remote control, there may be restrictions to entering Ambient Mode Because this function is a QLED TV-specific function, it may not be supported depending on the model. Decor Info Photo 
+
+Question: How can I turn on ambient mode on TV screen. Can you explain about that?
+
 ```
 
 **B** `cb9fd1e08e8a`
@@ -615,10 +831,15 @@ Screen states related to Ambient Mode. Ambient Mode Ambient Mode , you can set u
 ```
 Use the following pieces of context to answer the question.
 
-Screen states related to Ambient Mode. Ambient Mode Ambient Mode , you can set up and enjoy visual information and design. In this state, less power is consumed and brightness is automatically adjusted by the illuminance sensor. Getting dark state Ambient Mode , the TV screen changes automatically according to the surroundings. When the surroundings get dark, the TV screen becomes darker. When the surroundings get bright before the TV screen turns completely black or when the remote control or the Bixby function is operated, the TV screen returns to the Ambient Mode You can change the auto brightness setting for Ambient Mode . For more information, refer to up the Ambient Mode In this state, the TV can activate voice guides and process voice commands. Black screen state Ambient Mode , if the surroundings get to a specific level of darkness or there is no external operation, the TV turns soft-off. Then, when the surroundings get bright, the TV screen returns to the Ambient Mode You can change the auto brightness setting for Ambient Mode . For more information, refer to up the Ambient Mode In this state, the TV cannot activate voice guides and process voice commands. TV off state To enter Ambient Mode when the TV is turned off, press the button on the remote control. To enter TV mode when the TV is turned off, press the button. In TV mode, you can watch broadcasts or enjoy the content on the external connected devices [...]
+Screen states related to Ambient Mode. Ambient Mode Ambient Mode , you can set up and enjoy visual information and design. In this state, less power is consumed and brightness is automatically adjusted by the illuminance sensor. Getting dark state Ambient Mode , the TV screen changes automatically according to the surroundings. When the surroundings get dark, the TV screen becomes darker. When the surroundings get bright before the TV screen turns completely black or when the remote control or the Bixby function is operated, the TV screen returns to the Ambient Mode You can change the auto brightness setting for Ambient Mode . For 
+[...]
+earn about the functions available in Ambient Mode, which is a QLED TV-specific function. Ambient Mode The image on your TV may differ from the image above depending on the model and geographical area. Ambient Mode , you can view beautiful screens, various visual information, and notifications. To enter Ambient Mode , press the button. To return to the TV mode, press the button. To shut off the TV, press the button. If you press the button when the TV is turned off, the TV turns on in Ambient Mode If you use a remote control other than the Samsung TV remote control, there may be restrictions to entering Ambient Mode Because this function is a QLED TV-specific function, it may not be supported depending on the model. Decor Info Photo 
+
+Question: How can I turn on ambient mode on TV screen?
+
 ```
 
-Verdict: 
+Verdict: real duplicate (same question)
 
 ## Pair 18: near_0.98 (train, TIGER-Lab/MMLU-Pro) vs (test, TIGER-Lab/MMLU-Pro)
 
@@ -627,7 +848,9 @@ Verdict:
 ```
 You are an knowledge expert, you are supposed to answer the multi-choice question to derive your final answer as `The answer is ...`
 
-Q: A defendant and his friend were down on their luck. They decided they would make some extra cash by robbing the local liquor store. The friend didn't like guns and decided to use a toy gun, which looked like a real gun, but only shot water. The defendant was aware that the gun was not real. Their plan fixed, they walked into the liquor store late one afternoon when few customers were in the store. The friend produced the toy pistol and pointed it at the customers and the clerk. The defendant ordered everyone to the floor, and the clerk began to rummage behind the counter for the key to the register. While his head was ducked, the clerk pulled a shotgun from behind the counter and fired it at the defendant and his friend. The defendant dived to the side, but his friend was shot and killed. If the defendant is subsequently charged with his friend's death he should be found
+Q: A defendant and his friend were down on their luck. They decided they would make some extra cash by robbing the local liquor store. The friend didn't like guns and decided to use a toy gun, which looked like a real gun, but only shot water. The defendant was aware that the gun was not real. Their plan fixed, they walked into the liquor store late one afternoon when few customers were in the store. The friend produced the toy pistol and pointed it at the customers and the clerk. The defendant ordered everyone to the floor, and the clerk began to rummage behi
+[...]
+hile his head was ducked, the clerk pulled a shotgun from behind the counter and fired it at the defendant and his friend. The defendant dived to the side, but his friend was shot and killed. If the defendant is subsequently charged with his friend's death he should be found
 Options are:
 (A): guilty of felony murder.
 (B): not guilty, because the clerk was justified in killing the friend.
@@ -637,7 +860,9 @@ Options are:
 (F): guilty of second degree murder.
 (G): guilty of voluntary manslaughter.
 (H): guilty of first degree murder.
-(I): guilty, because the defendant was involved in the commiss [...]
+(I): guilty, because the defendant was involved in the commission of a felony when his friend was killed.
+
+
 ```
 
 **B** `c6a1f4d3d7c9`
@@ -645,7 +870,9 @@ Options are:
 ```
 You are an knowledge expert, you are supposed to answer the multi-choice question to derive your final answer as `The answer is ...`
 
-Q: A defendant and his friend were down on their luck. They decided they would make some extra cash by robbing the local liquor store. The friend didn't like guns and decided to use a toy gun, which looked like a real gun, but only shot water. The defendant was aware that the gun was not real. Their plan fixed, they walked into the liquor store late one afternoon when few customers were in the store. The friend produced the toy pistol and pointed it at the customers and the clerk. The defendant ordered everyone to the floor, and the clerk began to rummage behind the counter for the key to the register. While his head was ducked, the clerk pulled a shotgun from behind the counter and fired it at the defendant and his friend. The defendant dived to the side, but his friend was shot and killed. If the defendant is subsequently charged with his friend's death he should be found
+Q: A defendant and his friend were down on their luck. They decided they would make some extra cash by robbing the local liquor store. The friend didn't like guns and decided to use a toy gun, which looked like a real gun, but only shot water. The defendant was aware that the gun was not real. Their plan fixed, they walked into the liquor store late one afternoon when few customers were in the store. The friend produced the toy pistol and pointed it at the customers and the clerk. The defendant ordered everyone to the floor, and the clerk began to rummage behi
+[...]
+the counter and fired it at the defendant and his friend. The defendant dived to the side, but his friend was shot and killed. If the defendant is subsequently charged with his friend's death he should be found
 Options are:
 (A): guilty of felony murder.
 (B): not guilty, because the clerk was justified in killing the friend.
@@ -655,10 +882,13 @@ Options are:
 (F): guilty of second degree murder.
 (G): guilty of voluntary manslaughter.
 (H): guilty of first degree murder.
-(I): guilty, because the defendant was involved in the commiss [...]
+(I): guilty, because the defendant was involved in the commission of a felony when his friend was killed.
+(J): not guilty, because the defendant did not pull the trigger.
+
+
 ```
 
-Verdict: 
+Verdict: real duplicate (same question)
 
 ## Pair 19: near_0.95 (train, rungalileo/ragbench/finqa) vs (threshold, rungalileo/ragbench/finqa)
 
@@ -667,7 +897,12 @@ Verdict:
 ```
 Use the following pieces of context to answer the question.
 
-approximately 710 asphalt-paving contractors , government entities ( states , counties , cities and townships ) and asphalt roofing shingle manufacturers . we also produce asphalt cements , polymerized asphalt , asphalt emulsions and industrial asphalts . retail marketing ssa , our wholly-owned subsidiary , sells gasoline and merchandise through owned and operated retail outlets primarily under the speedway ae and superamerica ae brands . diesel fuel is also sold at a number of these outlets . ssa retail outlets offer a wide variety of merchandise , such as prepared foods , beverages , and non-food items , as well as a significant number of proprietary items . as of december 31 , 2008 , ssa had 1617 retail outlets in nine states . sales of refined products through these retail outlets accounted for 15 percent of our refined product sales volumes in 2008 . revenues from sales of non-petroleum merchandise through these retail outlets totaled $ 2838 million in 2008 , $ 2796 million in 2007 and $ 2706 million in 2006 . the demand for gasoline is seasonal in a majority of ssa markets , usually with the highest demand during the summer driving season . profit levels from the sale of merchandise and services tend to be less volatile than profit levels from the retail sale of gasoline and diesel fuel . in october 2008 , we sold our interest in pilot travel centers llc ( 201cptc 201d ) , an operator of travel centers in the  [...]
+approximately 710 asphalt-paving contractors , government entities ( states , counties , cities and townships ) and asphalt roofing shingle manufacturers . we also produce asphalt cements , polymerized asphalt , asphalt emulsions and industrial asphalts . retail marketing ssa , our wholly-owned subsidiary , sells gasoline and merchandise through owned and operated retail outlets primarily under the speedway ae and superamerica ae brands . diesel fuel is also sold at a number of these outlets . ssa retail outlets offer a wide variety of merchandise , such as prepared foods , beverages , and non-food items , as well as a significant 
+[...]
+, mpl operates most of our private pipelines and 985 miles of crude oil and 160 miles of natural gas pipelines owned by our e&p segment . our major refined product lines include the cardinal products pipeline and the wabash pipeline . the cardinal products pipeline delivers refined products from kenova , west virginia , to columbus , ohio . the wabash pipeline system delivers product from robinson , illinois , to various terminals in the area of chicago , illinois . other significant refined product pipelines owned and operated by mpl extend from : robinson , illinois , to louisville , kentucky ; garyville , louisiana , to zachary , louisiana ; and texas city , texas , to pasadena , texas. .
+
+Question: what percentage of pipeline barrels handled consisted of crude oil trunk lines in 2007?
+
 ```
 
 **B** `d7a2393c6d6d`
@@ -675,10 +910,15 @@ approximately 710 asphalt-paving contractors , government entities ( states , co
 ```
 Use the following pieces of context to answer the question.
 
-approximately 710 asphalt-paving contractors , government entities ( states , counties , cities and townships ) and asphalt roofing shingle manufacturers . we also produce asphalt cements , polymerized asphalt , asphalt emulsions and industrial asphalts . retail marketing ssa , our wholly-owned subsidiary , sells gasoline and merchandise through owned and operated retail outlets primarily under the speedway ae and superamerica ae brands . diesel fuel is also sold at a number of these outlets . ssa retail outlets offer a wide variety of merchandise , such as prepared foods , beverages , and non-food items , as well as a significant number of proprietary items . as of december 31 , 2008 , ssa had 1617 retail outlets in nine states . sales of refined products through these retail outlets accounted for 15 percent of our refined product sales volumes in 2008 . revenues from sales of non-petroleum merchandise through these retail outlets totaled $ 2838 million in 2008 , $ 2796 million in 2007 and $ 2706 million in 2006 . the demand for gasoline is seasonal in a majority of ssa markets , usually with the highest demand during the summer driving season . profit levels from the sale of merchandise and services tend to be less volatile than profit levels from the retail sale of gasoline and diesel fuel . in october 2008 , we sold our interest in pilot travel centers llc ( 201cptc 201d ) , an operator of travel centers in the  [...]
+approximately 710 asphalt-paving contractors , government entities ( states , counties , cities and townships ) and asphalt roofing shingle manufacturers . we also produce asphalt cements , polymerized asphalt , asphalt emulsions and industrial asphalts . retail marketing ssa , our wholly-owned subsidiary , sells gasoline and merchandise through owned and operated retail outlets primarily under the speedway ae and superamerica ae brands . diesel fuel is also sold at a number of these outlets . ssa retail outlets offer a wide variety of merchandise , such as prepared foods , beverages , and non-food items , as well as a significant 
+[...]
+l operates most of our private pipelines and 985 miles of crude oil and 160 miles of natural gas pipelines owned by our e&p segment . our major refined product lines include the cardinal products pipeline and the wabash pipeline . the cardinal products pipeline delivers refined products from kenova , west virginia , to columbus , ohio . the wabash pipeline system delivers product from robinson , illinois , to various terminals in the area of chicago , illinois . other significant refined product pipelines owned and operated by mpl extend from : robinson , illinois , to louisville , kentucky ; garyville , louisiana , to zachary , louisiana ; and texas city , texas , to pasadena , texas. .
+
+Question: what was total miles of private crude oil pipelines and private refined products pipelines?
+
 ```
 
-Verdict: 
+Verdict: same passage, different question (removed as shared-passage leak)
 
 ## Pair 20: near_0.95 (train, rungalileo/ragbench/tatqa) vs (calibration, rungalileo/ragbench/tatqa)
 
@@ -693,13 +933,18 @@ Other identifiable intangible assets were as follows: [["", "", "2019", "", "201
 Non-amortizing intangible assets are comprised of brands and trademarks.
 
 
-Amortizing intangible assets, carrying a remaining weighted-average life of approximately 20 years, are principally composed of customer relationships, and acquired intellectual property. For fiscal 2019, 2018, and 2017, we recognized amortization expense of $49.1 million, $34.9 million, and $33.6 million, respectively. Based on amortizing assets recognized in our Consolidated Balance Sheet as of May 26, 2019, amortization expense is estimated to average $58.3 million for each of the next five years, with a high expense of $59.9 million in fiscal 2020 and decreasing to a low expense of $54.2 million in fiscal 2024.
+Amortizing intangible assets, carrying a remaining weighted-average life of approximately 20 years, are principally composed of customer relationships, and acq
+[...]
+ changes in foreign exchange rates.
 
 
-During fiscal 2019, in conjunction with the divestiture of our Italian-based frozen pasta business, Gelit, we reclassified $15.1 million and $1.7 million of goodwill and other identifiable intangible assets, respectively, to noncurrent assets held for sale for periods prior to the divestiture.
+In fiscal 2017, due to declining sales of certain brands, we elected to perform a quantitative impairment test for indefinite lived intangibles of those brands. During fiscal 2017, we recognized impairment charges of $31.5 million for our Del Monte® brand and $5.5 million for our Aylmer® brand in our International segment. We also recognized impairment charges of $67.1 million for our Chef Boyardee® brand and $1.1 million for our Fiddle Faddle® brand in our Grocery & Snacks segment.
 
 
-During fiscal 2019, as a result of ou [...]
+Notes to Consolidated Financial Statements - (Continued) Fiscal Years Ended May 26, 2019, May 27, 2018, and May 28, 2017 (columnar dollars in millions except per share amounts)
+
+Question: What was the accumulated amortization of fiscal years 2018 and 2019, respectively? 
+
 ```
 
 **B** `c3119cd120f9`
@@ -713,13 +958,18 @@ Other identifiable intangible assets were as follows: [["", "", "2019", "", "201
 Non-amortizing intangible assets are comprised of brands and trademarks.
 
 
-Amortizing intangible assets, carrying a remaining weighted-average life of approximately 20 years, are principally composed of customer relationships, and acquired intellectual property. For fiscal 2019, 2018, and 2017, we recognized amortization expense of $49.1 million, $34.9 million, and $33.6 million, respectively. Based on amortizing assets recognized in our Consolidated Balance Sheet as of May 26, 2019, amortization expense is estimated to average $58.3 million for each of the next five years, with a high expense of $59.9 million in fiscal 2020 and decreasing to a low expense of $54.2 million in fiscal 2024.
+Amortizing intangible assets, carrying a remaining weighted-average life of approximately 20 years, are principally composed of customer relationships, and acq
+[...]
+which were caused primarily by changes in foreign exchange rates.
 
 
-During fiscal 2019, in conjunction with the divestiture of our Italian-based frozen pasta business, Gelit, we reclassified $15.1 million and $1.7 million of goodwill and other identifiable intangible assets, respectively, to noncurrent assets held for sale for periods prior to the divestiture.
+In fiscal 2017, due to declining sales of certain brands, we elected to perform a quantitative impairment test for indefinite lived intangibles of those brands. During fiscal 2017, we recognized impairment charges of $31.5 million for our Del Monte® brand and $5.5 million for our Aylmer® brand in our International segment. We also recognized impairment charges of $67.1 million for our Chef Boyardee® brand and $1.1 million for our Fiddle Faddle® brand in our Grocery & Snacks segment.
 
 
-During fiscal 2019, as a result of ou [...]
+Notes to Consolidated Financial Statements - (Continued) Fiscal Years Ended May 26, 2019, May 27, 2018, and May 28, 2017 (columnar dollars in millions except per share amounts)
+
+Question: What do non-amortizing intangible assets comprise of?
+
 ```
 
-Verdict: 
+Verdict: same passage, different question (removed as shared-passage leak)

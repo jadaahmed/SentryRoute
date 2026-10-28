@@ -23,7 +23,7 @@ Source of truth for the full method: [`docs/phase1_plan_v2.4.md`](docs/phase1_pl
 | 1 Understand SPROUT | Heshmat | **done.** Analysis and judge hand-check in [`notes/data_notes.md`](notes/data_notes.md): judge not broken, proceed to Stage 2 |
 | 1b 100-row judge hand-check | Heshmat | later (days 5-7) |
 | 2 Labels | Heshmat | **done.** [`notes/stage2_labels.md`](notes/stage2_labels.md), `labels/labels_v1.csv` (open: laptop VRAM check for the local pair; does not affect the split) |
-| 3 Splits (frozen) | Heshmat | **done, frozen 29 Oct 2026.** [`notes/stage3_splits.md`](notes/stage3_splits.md), `splits/split_v1.csv` (open: 20-pair near-duplicate hand check) |
+| 3 Splits (frozen) | Heshmat | **done, frozen 29 Oct 2026.** [`notes/stage3_splits.md`](notes/stage3_splits.md), `splits/split_v1.csv` |
 | 4-9 | others | **unblocked**: use `labels_v1.csv` + `split_v1.csv`; test locked until Stage 6 |
 
 ## Stage 1 findings that affect everyone
