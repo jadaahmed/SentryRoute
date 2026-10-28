@@ -143,7 +143,7 @@ if len(smp) < 20 and len(near) > len(smp): smp = pd.concat([smp, near.drop(smp.i
 md = [f"# Near-duplicate pairs to read (Stage 3 step 3)\n\n{len(near)} flagged pairs; {len(smp)} shown. "
       "For each, write `real duplicate` or `not a duplicate` under the verdict line. Record the count in the Stage 3 notes.\n"]
 for k, r in enumerate(smp.itertuples(), 1):
-    clip = lambda t: (t[:1500] + " [...]") if len(t) > 1500 else t
+    clip = lambda t: (t[:700] + "\n[...]\n" + t[-800:]) if len(t) > 1500 else t  # keep the tail: ragbench/MuSR put the question last
     md += [f"## Pair {k}: {r.kind} ({r.a_split}, {r.a_source}) vs ({r.b_split}, {r.b_source})\n",
            f"**A** `{r.a_id[:12]}`\n\n```\n{clip(D.at[r.a, 'prompt'])}\n```\n",
            f"**B** `{r.b_id[:12]}`\n\n```\n{clip(D.at[r.b, 'prompt'])}\n```\n", "Verdict: \n"]

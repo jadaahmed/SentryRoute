@@ -42,7 +42,7 @@ Calibration / threshold: SPROUT validation split in half, stratified on source x
 
 **Decision:** shared-passage pairs are removed like duplicates. A classifier that has seen the same 40k-character contract in train is not being tested on new text. This costs 171 train prompts (0.6% of train) plus 19 calibration / threshold prompts, all from two tiny sources that are already "too few to judge" per source. Test is untouched either way. Logged in `preregistration.md`.
 
-The plan's hand check of 20 flagged pairs is in `notes/stage3/near_dup_pairs_to_read.md`. **Still to do:** write a verdict under each pair and record the count here.
+**Hand check of 20 flagged pairs** (plan step 3, full text read; verdicts in `notes/stage3/near_dup_pairs_to_read.md`): **7 real duplicates** (openhermes x3, MMLU-Pro x3, one reworded emanual question), **13 same passage with a different question** (MuSR x3, cuad x3, finqa x3, tatqa x2, emanual x2), **0 unrelated**. The MinHash flag never fired on unrelated prompts, so the 0.9 threshold is not too loose. All 20 are removed under the rules above.
 
 ## Effect on Stage 2 decisions
 
