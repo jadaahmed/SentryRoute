@@ -1,0 +1,5 @@
+split,n,removed,ext_easy,ext_hard,ext_infeasible,ext_hard_pct_of_labelled,loc_hard_pct_of_labelled
+train,30621,347,25179,2390,3052,8.7,19.4
+calibration,3302,16,2716,250,336,8.4,20.5
+threshold,3293,25,2707,248,338,8.4,18.4
+test,6637,0,5455,545,637,9.1,19.7

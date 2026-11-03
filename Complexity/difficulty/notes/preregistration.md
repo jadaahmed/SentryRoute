@@ -53,3 +53,4 @@ Details: `Complexity/difficulty/notes/stage2_labels.md`.
 | Date | Change | Reason | By |
 |---|---|---|---|
 | 2026-10-26 | Gateway contract v2 adds the optional per-pool answer (`pools`); the "tier and score the gateway sees" row now returns both pools plus the more complex one at the top level | Karim agreed to the proposal; removes the over-routing of prompts that are only hard for the other pool (5,194 prompts, 11.7%, are easy external / hard local) | Heshmat |
+| 2026-10-29 | Stage 3: near-duplicate pairs that share a long passage but ask a different question (ragbench/cuad, MuSR/object_placements) are removed like duplicates. External class weight on hard from the frozen train part is 10.54 (was 10.56 before duplicate removal) | Same passage in train and evaluation is a leak; costs 0.6% of train, test untouched. Weight recomputed on the frozen train part as the rule says. Details in `stage3_splits.md` | Heshmat |
